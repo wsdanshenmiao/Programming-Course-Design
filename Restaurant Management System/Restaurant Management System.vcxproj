@@ -135,12 +135,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source File\Administrator.c" />
+    <ClCompile Include="Source File\Client.c" />
     <ClCompile Include="Source File\DoubleList.c" />
+    <ClCompile Include="Source File\FoodInfo.c" />
     <ClCompile Include="Source File\main.c" />
+    <ClCompile Include="Source File\ManagementAPP.c" />
+    <ClCompile Include="Source File\Order.c" />
+    <ClCompile Include="Source File\LoginSystem.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source File\Administrator.h" />
+    <ClInclude Include="Source File\Client.h" />
     <ClInclude Include="Source File\DoubleList.h" />
     <ClInclude Include="Source File\DSMUtil.h" />
+    <ClInclude Include="Source File\FoodInfo.h" />
+    <ClInclude Include="Source File\ManagementAPP.h" />
+    <ClInclude Include="Source File\Order.h" />
+    <ClInclude Include="Source File\LoginSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

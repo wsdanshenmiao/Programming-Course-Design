@@ -1,54 +1,58 @@
 #include "DoubleList.h"
 
-#define ASSERTLIST(T) ((T)) || (((T)->m_Head))
+bool AssertList(const DoubleList* const list)
+{
+	return NULL != list && NULL != list->m_Head;
+}
 
 bool ListIsEmpty(const DoubleList* const list)
 {
-	if (!ASSERTLIST(list)) return true;
+	if (!AssertList(list) || NULL == list->m_Head->m_Next) return true;
 
 	return 0 == list->m_Size && list->m_Head->m_Next == list->m_Head;
 }
 
-ListNode* Begin(const DoubleList* const list)
+ListNode* ListBegin(const DoubleList* const list)
 {
-	if (!ASSERTLIST(list))return NULL;
+	if (!AssertList(list))return NULL;
 
 	return ListIsEmpty(list) ? list->m_Head : list->m_Head->m_Next;
 }
 
-ListNode* End(const DoubleList* const list)
+ListNode* ListEnd(const DoubleList* const list)
 {
-	if (!ASSERTLIST(list))return NULL;
+	if (!AssertList(list))return NULL;
 
 	return list->m_Head;
 }
 
-ListNode* RBegin(const DoubleList* const list)
+ListNode* ListRBegin(const DoubleList* const list)
 {
-	if (!ASSERTLIST(list))return NULL;
+	if (!AssertList(list))return NULL;
 
 	return list->m_Head;
 }
 
-ListNode* REnd(const DoubleList* const list)
+ListNode* ListREnd(const DoubleList* const list)
 {
-	if (!ASSERTLIST(list))return NULL;
+	if (!AssertList(list))return NULL;
 
 	return ListIsEmpty(list) ? list->m_Head : list->m_Head->m_Pre;
 }
 
-DoubleList* CreateList(void* (*constructor)(), void(*destructor)(void*), bool(*cmpFunc)(void*, void*))
+DoubleList* CreateList(void* (*constructor)(), void(*destructor)(void*))
 {
+	assert(ASSERTPOINTER(constructor) && ASSERTPOINTER(destructor));
 	DoubleList* list = MALLOC(DoubleList);
 	if (NULL == list)return NULL;
 
 	list->m_Size = 0;
 	list->constructor = constructor;
 	list->destructor = destructor;
-	list->cmpFunc = cmpFunc;
 
+	list->m_Head = MALLOC(ListNode);
+	if (NULL == list->m_Head)return NULL;
 	ListNode** head = &list->m_Head;
-	*head = MALLOC(ListNode);
 	(*head)->m_Data = NULL;
 	(*head)->m_Pre = *head;
 	(*head)->m_Next = *head;
@@ -56,9 +60,9 @@ DoubleList* CreateList(void* (*constructor)(), void(*destructor)(void*), bool(*c
 	return list;
 }
 
-ListNode* PushBack(DoubleList* list)
+ListNode* ListPushBack(DoubleList* list)
 {
-	if (!ASSERTLIST(list))return NULL;
+	if (!AssertList(list))return NULL;
 
 	ListNode** head = &list->m_Head;
 
@@ -75,9 +79,9 @@ ListNode* PushBack(DoubleList* list)
 	return newNode;
 }
 
-ListNode* PushFront(DoubleList* list)
+ListNode* ListPushFront(DoubleList* list)
 {
-	if (!ASSERTLIST(list))return NULL;
+	if (!AssertList(list))return NULL;
 
 	ListNode** head = &list->m_Head;
 
@@ -96,7 +100,7 @@ ListNode* PushFront(DoubleList* list)
 
 //void PopBack(DoubleList* list)
 //{
-//	if (!ASSERTLIST(list) || ListIsEmpty(list))return;
+//	if (!AssertList(list) || ListIsEmpty(list))return;
 //
 //	ListNode** head = &list->m_Head;
 //
@@ -115,7 +119,7 @@ ListNode* PushFront(DoubleList* list)
 //
 //void PopFront(DoubleList* list)
 //{
-//	if (!ASSERTLIST(list) || ListIsEmpty(list))return;
+//	if (!AssertList(list) || ListIsEmpty(list))return;
 //
 //	ListNode** head = &list->m_Head;
 //
@@ -131,23 +135,23 @@ ListNode* PushFront(DoubleList* list)
 //	--list->m_Size;
 //}
 
-void PopBack(DoubleList* list)
+void ListPopBack(DoubleList* list)
 {
-	if (!ASSERTLIST(list) || ListIsEmpty(list))return;
+	if (!AssertList(list) || ListIsEmpty(list))return;
 
-	Erase(list, list->m_Head->m_Pre);
+	ListEraseNode(list, list->m_Head->m_Pre);
 }
 
-void PopFront(DoubleList* list)
+void ListPopFront(DoubleList* list)
 {
-	if (!ASSERTLIST(list) || ListIsEmpty(list)) return;
+	if (!AssertList(list) || ListIsEmpty(list)) return;
 
-	Erase(list, list->m_Head->m_Next);
+	ListEraseNode(list, list->m_Head->m_Next);
 }
 
-ListNode* Insert(DoubleList* list, ListNode* pos)
+ListNode* ListInsertNode(DoubleList* list, ListNode* pos)
 {
-	if (!ASSERTLIST(list) || NULL == pos)return NULL;
+	if (!AssertList(list) || NULL == pos)return NULL;
 
 	ListNode* newNode = MALLOC(ListNode);
 	if (NULL == newNode)return NULL;
@@ -163,10 +167,10 @@ ListNode* Insert(DoubleList* list, ListNode* pos)
 	return newNode;
 }
 
-ListNode* Erase(DoubleList* list, ListNode* pos)
+ListNode* ListEraseNode(DoubleList* list, ListNode* pos)
 {
-	if (!ASSERTLIST(list) || ListIsEmpty(list) ||
-		NULL == pos || list->m_Head == pos)return NULL;
+	assert(ASSERTPOINTER(pos));
+	if (!AssertList(list) || ListIsEmpty(list) || list->m_Head == pos)return NULL;
 
 	ListNode* nextNode = pos->m_Next;
 	nextNode->m_Pre = pos->m_Pre;
@@ -180,48 +184,51 @@ ListNode* Erase(DoubleList* list, ListNode* pos)
 	return nextNode;
 }
 
-ListNode* Find(DoubleList* list, void* cmpValue)
+ListNode* ListFindNode(DoubleList* list, void* cmpValue, int cmpFunc(void*, void*))
 {
-	if (!ASSERTLIST(list) || NULL == cmpValue)return NULL;
+	assert(ASSERTPOINTER(cmpValue) && ASSERTPOINTER(cmpFunc));
+	if (!AssertList(list))return NULL;
 
-	ListNode* node = Begin(list);
-	for (; node != End(list); node = node->m_Next) {
-		if (0 == list->cmpFunc(node->m_Data, cmpValue)) break;
+	ListNode* node = ListBegin(list);
+	for (; node != ListEnd(list); node = node->m_Next) {
+		if (0 == cmpFunc(node->m_Data, cmpValue)) break;
 	}
 	return node;
 }
 
-void Traversal(DoubleList* list, void operation(void*, void*), void* operateValue)
+void ListTraversal(DoubleList* list, void operation(void*, void*), void* operateValue)
 {
-	if (!ASSERTLIST(list) || NULL == operation)return;
+	// operateValue可以为空
+	assert(ASSERTPOINTER(operation));
+	if (!AssertList(list))return;
 
-	for (ListNode* node = Begin(list); node != End(list); node = node->m_Next) {
+	for (ListNode* node = ListBegin(list); node != ListEnd(list); node = node->m_Next) {
 		operation(node->m_Data, operateValue);
 	}
 }
 
-void Clear(DoubleList* list)
+void ListClear(DoubleList* list)
 {
-	if (!ASSERTLIST(list)) return;
+	if (!AssertList(list)) return;
 
 	while (!ListIsEmpty(list)) {
-		PopFront(list);
+		ListEraseNode(list, list->m_Head->m_Next);
 	}
 	list->m_Size = 0;
 }
 
-DoubleList* Destroy(DoubleList* list)
+DoubleList* ListDestroy(DoubleList* list)
 {
-	if (!ASSERTLIST(list))return NULL;
+	if (!AssertList(list))return NULL;
 
-	Clear(list);
+	ListClear(list);
 	free(list->m_Head);
 	free(list);
 	list = NULL;
 	return list;
 }
 
-void DefaultDestructor(void* pValue)
+void NodeDataDefaultDestructor(void* pValue)
 {
 	if (NULL != pValue) {
 		free(pValue);

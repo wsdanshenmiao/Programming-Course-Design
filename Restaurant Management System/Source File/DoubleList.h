@@ -3,12 +3,20 @@
 	Author:			danshenmiao
 	Versions:		1.0
 	Creation time:	2024.12.18
+	Finish time:	2024.12.18
 	Abstract:		可接受任意类型数据的双向循环链表
 ****************************************************************************************/
+/****************************************************************************************
+	Filename:		DoubleList.h
+	Author:			danshenmiao
+	Versions:		2.0
+	Creation time:	2024.12.20
+	Finish time:	2024.12.20
+	Abstract:		更改接口名称，加入断言指针
+****************************************************************************************/
 
-#pragma once
-#ifndef __DOUBLYLIST__H__
-#define __DOUBLYLIST__H__
+#ifndef __DOUBLELIST__H__
+#define __DOUBLELIST__H__
 
 #include "DSMUtil.h"
 
@@ -16,10 +24,11 @@
 /// 链表的节点，包含指向前后节点的指针和储存的数据
 /// </summary>
 typedef struct ListNode {
-	ListNode* m_Pre;
-	ListNode* m_Next;
+	struct ListNode* m_Pre;
+	struct ListNode* m_Next;
 	void* m_Data;
 }ListNode;
+
 
 /// <summary>
 /// 链表，包含头节点、链表元素大小、内部元素的比较函数及释放内部数据内存的析构函数
@@ -29,8 +38,10 @@ typedef struct DoubleList {
 	size_t m_Size;
 	void* (*constructor)();
 	void(*destructor)(void*);
-	bool (*cmpFunc)(void*, void*);
 }DoubleList;
+
+bool AssertList(const DoubleList* const list);
+
 
 /// <summary>
 /// 检测链表是否为空
@@ -39,69 +50,77 @@ typedef struct DoubleList {
 /// <returns></returns>
 bool ListIsEmpty(const DoubleList* const list);
 
+
 /// <summary>
 /// 返回链表的首节点，当链表为空时返回头节点
 /// </summary>
 /// <param name="list"></param>
 /// <returns></returns>
-ListNode* Begin(const DoubleList* const list);
+ListNode* ListBegin(const DoubleList* const list);
+
 
 /// <summary>
 /// 返回链表的头节点
 /// </summary>
 /// <param name="list"></param>
 /// <returns></returns>
-ListNode* End(const DoubleList* const list);
+ListNode* ListEnd(const DoubleList* const list);
+
 
 /// <summary>
 /// 返回链表的头节点
 /// </summary>
 /// <param name="list"></param>
 /// <returns></returns>
-ListNode* RBegin(const DoubleList* const list);
+ListNode* ListRBegin(const DoubleList* const list);
+
 
 /// <summary>
 /// 返回链表的最后一个元素，当链表为空时返回头节点
 /// </summary>
 /// <param name="list"></param>
 /// <returns></returns>
-ListNode* REnd(const DoubleList* const list);
+ListNode* ListREnd(const DoubleList* const list);
+
 
 /// <summary>
 /// 创建一个新的链表，需要提供分配内存的函数，析构函数及比较函数
 /// </summary>
 /// <param name="constructor"></param>
 /// <param name="destructor"></param>
-/// <param name="cmpFunc"></param>
 /// <returns></returns>
 DoubleList* CreateList(
 	void* (*constructor)(),
-	void(*destructor)(void*),
-	bool (*cmpFunc)(void*, void*));
+	void(*destructor)(void*));
+
 
 /// <summary>
 /// 在链表尾端插入元素,并返回插入元素，可对该元素进行初始化
 /// </summary>
 /// <param name="list"></param>
-ListNode* PushBack(DoubleList* list);
+ListNode* ListPushBack(DoubleList* list);
+
 
 /// <summary>
 /// 在链表头部插入元素并返回插入元素，可对该元素进行初始化
 /// </summary>
 /// <param name="list"></param>
-ListNode* PushFront(DoubleList* list);
+ListNode* ListPushFront(DoubleList* list);
+
 
 /// <summary>
 /// 移除最后一个元素
 /// </summary>
 /// <param name="list"></param>
-void PopBack(DoubleList* list);
+void ListPopBack(DoubleList* list);
+
 
 /// <summary>
 /// 移除第一个元素
 /// </summary>
 /// <param name="list"></param>
-void PopFront(DoubleList* list);
+void ListPopFront(DoubleList* list);
+
 
 /// <summary>
 /// 在pos的前面插入一个元素,并返回插入元素，可对该元素进行初始化
@@ -109,7 +128,8 @@ void PopFront(DoubleList* list);
 /// <param name="list"></param>
 /// <param name="pos"></param>
 /// <returns></returns>
-ListNode* Insert(DoubleList* list, ListNode* pos);
+ListNode* ListInsertNode(DoubleList* list, ListNode* pos);
+
 
 /// <summary>
 /// 移除pos处的元素，并返回其后面的元素
@@ -117,7 +137,8 @@ ListNode* Insert(DoubleList* list, ListNode* pos);
 /// <param name="list"></param>
 /// <param name="pos"></param>
 /// <returns></returns>
-ListNode* Erase(DoubleList* list, ListNode* pos);
+ListNode* ListEraseNode(DoubleList* list, ListNode* pos);
+
 
 /// <summary>
 /// 查找一个元素，并返回其所在的节点
@@ -125,7 +146,8 @@ ListNode* Erase(DoubleList* list, ListNode* pos);
 /// <param name="list"></param>
 /// <param name="cmpValue"></param>
 /// <returns></returns>
-ListNode* Find(DoubleList* list, void* cmpValue);
+ListNode* ListFindNode(DoubleList* list, void* cmpValue, int cmpFunc(void*, void*));
+
 
 /// <summary>
 /// 遍历整个链表，并执行传入的操作函数
@@ -133,25 +155,28 @@ ListNode* Find(DoubleList* list, void* cmpValue);
 /// <param name="list"></param>
 /// <param name="operation"></param>	对链表内部数据进行操作的函数
 /// <param name="operateValue"></param>
-void Traversal(DoubleList* list, void operation(void*, void*), void* operateValue);
+void ListTraversal(DoubleList* list, void operation(void*, void*), void* operateValue);
+
 
 /// <summary>
 /// 清除所有元素
 /// </summary>
 /// <param name="list"></param>
-void Clear(DoubleList* list);
+void ListClear(DoubleList* list);
+
 
 /// <summary>
 /// 销毁链表，返回NULL
 /// </summary>
 /// <param name="list"></param>
 /// <returns></returns>
-DoubleList* Destroy(DoubleList* list);
+DoubleList* ListDestroy(DoubleList* list);
+
 
 /// <summary>
 /// 默认的析构函数
 /// </summary>
 /// <param name="pValue"></param>
-void DefaultDestructor(void* pValue);
+void NodeDataDefaultDestructor(void* pValue);
 
 #endif

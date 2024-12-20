@@ -21,12 +21,48 @@
     <ClCompile Include="Source File\DoubleList.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Source File\ManagementAPP.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Source File\Client.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Source File\Administrator.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Source File\FoodInfo.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Source File\Order.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Source File\LoginSystem.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source File\DSMUtil.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Source File\ManagementAPP.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="Source File\DoubleList.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Source File\DSMUtil.h">
+    <ClInclude Include="Source File\Client.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Source File\Administrator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Source File\FoodInfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Source File\Order.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Source File\LoginSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

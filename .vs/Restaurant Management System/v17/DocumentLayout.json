@@ -3,20 +3,28 @@
   "WorkspaceRootPath": "D:\\Code\\C\\Restaurant Management System\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\DoubleList.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|solutionrelative:Restaurant Management System\\Source File\\DoubleList.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\LoginSystem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|solutionrelative:Restaurant Management System\\Source File\\LoginSystem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\DoubleList.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|solutionrelative:Restaurant Management System\\Source File\\DoubleList.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\LoginSystem.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|solutionrelative:Restaurant Management System\\Source File\\LoginSystem.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\DSMUtil.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|solutionrelative:Restaurant Management System\\Source File\\DSMUtil.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\Client.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|solutionrelative:Restaurant Management System\\Source File\\Client.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|solutionrelative:Restaurant Management System\\Source File\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\Client.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|solutionrelative:Restaurant Management System\\Source File\\Client.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\Administrator.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|solutionrelative:Restaurant Management System\\Source File\\Administrator.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\Administrator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{413F4DB1-2262-4B03-A2A0-1BF45B9C201F}|Restaurant Management System\\Restaurant Management System.vcxproj|solutionrelative:Restaurant Management System\\Source File\\Administrator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,33 +34,33 @@
       "DocumentGroups": [
         {
           "DockedWidth": 241,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DoubleList.c",
-              "DocumentMoniker": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\DoubleList.c",
-              "RelativeDocumentMoniker": "Restaurant Management System\\Source File\\DoubleList.c",
-              "ToolTip": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\DoubleList.c",
-              "RelativeToolTip": "Restaurant Management System\\Source File\\DoubleList.c",
-              "ViewState": "AgIAAMwAAAAAAAAAAAAqwNIAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-12-18T10:23:14.98Z",
+              "DocumentIndex": 0,
+              "Title": "LoginSystem.h",
+              "DocumentMoniker": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\LoginSystem.h",
+              "RelativeDocumentMoniker": "Restaurant Management System\\Source File\\LoginSystem.h",
+              "ToolTip": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\LoginSystem.h",
+              "RelativeToolTip": "Restaurant Management System\\Source File\\LoginSystem.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-20T09:50:22.873Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "DoubleList.h",
-              "DocumentMoniker": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\DoubleList.h",
-              "RelativeDocumentMoniker": "Restaurant Management System\\Source File\\DoubleList.h",
-              "ToolTip": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\DoubleList.h",
-              "RelativeToolTip": "Restaurant Management System\\Source File\\DoubleList.h",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAADoAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-18T09:20:49.729Z",
+              "DocumentIndex": 1,
+              "Title": "LoginSystem.c",
+              "DocumentMoniker": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\LoginSystem.c",
+              "RelativeDocumentMoniker": "Restaurant Management System\\Source File\\LoginSystem.c",
+              "ToolTip": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\LoginSystem.c",
+              "RelativeToolTip": "Restaurant Management System\\Source File\\LoginSystem.c",
+              "ViewState": "AgIAABcAAAAAAAAAAAAAACUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-12-20T09:47:07.78Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
@@ -77,29 +85,59 @@
               "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "DSMUtil.h",
-              "DocumentMoniker": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\DSMUtil.h",
-              "RelativeDocumentMoniker": "Restaurant Management System\\Source File\\DSMUtil.h",
-              "ToolTip": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\DSMUtil.h",
-              "RelativeToolTip": "Restaurant Management System\\Source File\\DSMUtil.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-18T09:29:34.096Z",
+              "Title": "Client.c",
+              "DocumentMoniker": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\Client.c",
+              "RelativeDocumentMoniker": "Restaurant Management System\\Source File\\Client.c",
+              "ToolTip": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\Client.c",
+              "RelativeToolTip": "Restaurant Management System\\Source File\\Client.c",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAiwFMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-12-20T10:14:40.306Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "main.c",
-              "DocumentMoniker": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\main.c",
-              "RelativeDocumentMoniker": "Restaurant Management System\\Source File\\main.c",
-              "ToolTip": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\main.c",
-              "RelativeToolTip": "Restaurant Management System\\Source File\\main.c",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "Client.h",
+              "DocumentMoniker": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\Client.h",
+              "RelativeDocumentMoniker": "Restaurant Management System\\Source File\\Client.h",
+              "ToolTip": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\Client.h",
+              "RelativeToolTip": "Restaurant Management System\\Source File\\Client.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-20T10:08:52.547Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Administrator.c",
+              "DocumentMoniker": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\Administrator.c",
+              "RelativeDocumentMoniker": "Restaurant Management System\\Source File\\Administrator.c",
+              "ToolTip": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\Administrator.c",
+              "RelativeToolTip": "Restaurant Management System\\Source File\\Administrator.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-12-18T09:17:12.156Z",
+              "WhenOpened": "2024-12-20T10:27:35.976Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Administrator.h",
+              "DocumentMoniker": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\Administrator.h",
+              "RelativeDocumentMoniker": "Restaurant Management System\\Source File\\Administrator.h",
+              "ToolTip": "D:\\Code\\C\\Restaurant Management System\\Restaurant Management System\\Source File\\Administrator.h",
+              "RelativeToolTip": "Restaurant Management System\\Source File\\Administrator.h",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-20T10:08:50.716Z",
               "EditorCaption": ""
             }
           ]
