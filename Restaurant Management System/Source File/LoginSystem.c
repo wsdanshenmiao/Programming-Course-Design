@@ -3,15 +3,14 @@
 #include "Client.h"
 #include "Administrator.h"
 
-// private
-void ClientRegister();
-
-void AdministratorRegister();
 
 
 ListNode* ManagementAPPLogin(
+	char* fileName,
 	DoubleList* infoList,
+	void registe(DoubleList*),
 	ListNode* findInfo(DoubleList*),
+	void saveInfo(void*, void*),
 	char* catalogue)
 {
 	assert(ASSERTPOINTER(infoList) && ASSERTPOINTER(catalogue));
@@ -25,22 +24,15 @@ ListNode* ManagementAPPLogin(
 		printf("%s", catalogue);
 		printf("请选择:");
 		scanf("%d", &select);
-		CleanBuffer();
+		CleanInputBuffer();
 		system("cls");
 		switch (select) {
 		case EXIT: {	//保存信息并退出
-			FILE* pfw = fopen("Userinfo.dat", "wb");	//创建文件
-			if (pfw == NULL) {
-				printf("%s", strerror(errno));
-				return;
-			}
-			//TODO:遍历信息链表保存信息
-
-			fclose(pfw);
 			break;
 		}
 		case REGISTER: {  //注册
-
+			registe(infoList);
+			SaveUserInfo(fileName, infoList, saveInfo);
 			getchar();
 			break;
 		}
@@ -51,7 +43,6 @@ ListNode* ManagementAPPLogin(
 			}
 			else {
 				printf("登录成功\n");
-				return node;
 			}
 			getchar();
 			break;
@@ -62,6 +53,7 @@ ListNode* ManagementAPPLogin(
 			break;
 		}
 		}
+		CleanInputBuffer();
 		system("cls");
 	} while (select);
 
@@ -75,15 +67,14 @@ ListNode* ClientLogin(ManagementAPP* app)
 		"**************   0.返回主界面     ********************\n"
 		"**************   1.用户注册       ********************\n"
 		"**************   2.用户登录       ********************\n";
-	return ManagementAPPLogin(app->m_ClientData, FindClientInfo, catalogue);
+	return ManagementAPPLogin(
+		app->m_ClientDataFileName,
+		app->m_ClientData,
+		ClientRegiste,
+		FindClientInfo,
+		SaveClientInfo,
+		catalogue);
 }
-
-void ClientRegister()
-{
-}
-
-
-
 
 ListNode* AdministratorLogin(ManagementAPP* app)
 {
@@ -92,10 +83,23 @@ ListNode* AdministratorLogin(ManagementAPP* app)
 		"**************   0.返回主界面     ********************\n"
 		"**************   1.管理员注册     ********************\n"
 		"**************   2.管理员登录     ********************\n";
-	return ManagementAPPLogin(app->m_AdministratorData, FindAdministratorInfo, catalogue);
+	return ManagementAPPLogin(
+		app->m_AdministratorDataFileName,
+		app->m_AdministratorData,
+		AdministratorRegiste,
+		FindAdministratorInfo,
+		SaveAdministratorInfo,
+		catalogue);
 }
 
-void AdministratorRegister()
+void SaveUserInfo(char* fileName, DoubleList* infoList, void saveInfo(void*, void*))
 {
+	FILE* pfw = fopen(fileName, "wb");	//创建文件
+	if (pfw == NULL) {
+		printf("%s", strerror(errno));
+		return;
+	}
+	// 遍历信息链表保存信息
+	ListTraversal(infoList, saveInfo, pfw);
+	fclose(pfw);
 }
-

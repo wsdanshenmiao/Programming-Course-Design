@@ -1,6 +1,6 @@
 ﻿#include "FoodInfo.h"
 
-void* CreateFoodMenuData()
+void* CreateFoodInfoData()
 {
 	FoodInfo* food = MALLOC(FoodInfo);
 	if (NULL == food)return NULL;

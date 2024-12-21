@@ -22,7 +22,7 @@ typedef struct FoodInfo {
 	size_t m_Stock;				// 库存
 }FoodInfo;
 
-void* CreateFoodMenuData();
+void* CreateFoodInfoData();
 int CmpFoodMenuDataByPrice(void* f0, void* f1);
 int CmpFoodMenuDataByName(void* food, void* name);
 

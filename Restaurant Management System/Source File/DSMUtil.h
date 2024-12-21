@@ -30,7 +30,7 @@
 
 // general helper code
 // 清除输入缓冲区
-inline void CleanBuffer()
+inline void CleanInputBuffer()
 {
 	int ch;
 	while ((ch = getchar()) != '\n' && ch != EOF);

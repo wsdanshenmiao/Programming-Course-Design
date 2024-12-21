@@ -9,7 +9,7 @@ bool ListIsEmpty(const DoubleList* const list)
 {
 	if (!AssertList(list) || NULL == list->m_Head->m_Next) return true;
 
-	return 0 == list->m_Size && list->m_Head->m_Next == list->m_Head;
+	return 0 >= list->m_Size && list->m_Head->m_Next == list->m_Head;
 }
 
 ListNode* ListBegin(const DoubleList* const list)
@@ -174,7 +174,7 @@ ListNode* ListEraseNode(DoubleList* list, ListNode* pos)
 
 	ListNode* nextNode = pos->m_Next;
 	nextNode->m_Pre = pos->m_Pre;
-	pos->m_Pre = nextNode;
+	pos->m_Pre->m_Next = nextNode;
 
 	list->destructor(pos->m_Data);
 	free(pos);
@@ -187,7 +187,7 @@ ListNode* ListEraseNode(DoubleList* list, ListNode* pos)
 ListNode* ListFindNode(DoubleList* list, void* cmpValue, int cmpFunc(void*, void*))
 {
 	assert(ASSERTPOINTER(cmpValue) && ASSERTPOINTER(cmpFunc));
-	if (!AssertList(list))return NULL;
+	if (!AssertList(list) || ListIsEmpty(list))return ListEnd(list);
 
 	ListNode* node = ListBegin(list);
 	for (; node != ListEnd(list); node = node->m_Next) {

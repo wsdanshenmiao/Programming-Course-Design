@@ -11,6 +11,7 @@
 #define __ADMINISTRATOR__H__
 
 #include "DSMUtil.h"
+#include "DoubleList.h"
 
 typedef struct AdministratorInfo {
 	size_t m_ID;			// 管理者ID
@@ -23,6 +24,8 @@ int CmpAdministratorDataByPassword(void* ad, void* password);
 
 void AdministratorSide(struct ManagementAPP* app);
 ListNode* FindAdministratorInfo(DoubleList* infoList);
+void SaveAdministratorInfo(void* pValue, void* operateValue);
+void AdministratorRegiste(DoubleList* infoList);
 
 
 #endif

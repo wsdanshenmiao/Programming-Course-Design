@@ -15,10 +15,14 @@
 /// 主程序的数据
 /// </summary>
 typedef struct ManagementAPP {
-	DoubleList* m_FoodMenu;					// 菜单
+	DoubleList* m_FoodData;					// 菜单
 	DoubleList* m_ClientData;			// 用户数据
 	DoubleList* m_AdministratorData;	// 管理者数据
 	DoubleList* m_OrderData;			// 订单数据
+	char m_FoodDataFileName[20];
+	char m_ClientDataFileName[25];
+	char m_AdministratorDataFileName[25];
+	char m_OrderDataFileName[25];
 }ManagementAPP;
 
 // public
