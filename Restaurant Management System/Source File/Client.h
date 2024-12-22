@@ -11,12 +11,11 @@
 #define __CLIENT__H__
 
 #include "DSMUtil.h"
-#include"DoubleList.h"
 
 struct ManagementAPP;
 
 typedef struct ClientInfo {
-	char m_Clientname[20];		// 用户名
+	char m_ClientName[20];		// 用户名
 	char m_Password[20];		// 用户密码
 	char m_ClientPhoneNum[20];	// 用户手机号
 	size_t m_Balance;			// 余额
@@ -30,6 +29,7 @@ int CmpClientDataByName(void* client, void* cmpValue);
 void ClientSide(struct ManagementAPP* app);
 ListNode* FindClientInfo(DoubleList* infoList);
 void SaveClientInfo(void* pValue, void* operateValue);
-void ClientRegiste(DoubleList* infoList);
+void ShowClientNameAndPhoneNum(void* pValue, void* pad);
+void ShowClientAllInfo(void* pValue, void* pad);
 
 #endif

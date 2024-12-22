@@ -20,6 +20,7 @@ struct ManagementAPP;
 ListNode* ManagementAPPLogin(
 	char* fileName,
 	DoubleList* infoList,
+	void registe(DoubleList*),
 	ListNode* findInfo(DoubleList*),
 	void saveInfo(void*, void*),
 	char* catalogue);
@@ -30,6 +31,7 @@ ListNode* ManagementAPPLogin(
 /// <param name="app"></param>
 /// <returns></returns>
 ListNode* ClientLogin(struct ManagementAPP* app);
+void ClientRegiste(DoubleList* infoList);
 
 /// <summary>
 /// 管理员登录及注册
@@ -37,13 +39,6 @@ ListNode* ClientLogin(struct ManagementAPP* app);
 /// <param name="app"></param>
 /// <returns></returns>
 ListNode* AdministratorLogin(struct ManagementAPP* app);
-
-/// <summary>
-/// 保存信息到文件
-/// </summary>
-/// <param name="fileName"></param>	文件的名字
-/// <param name="infoList"></param>	所要保存的链表
-/// <param name="saveInfo"></param>	保存信息的回调函数
-void SaveUserInfo(char* fileName, DoubleList* infoList, void saveInfo(void*, void*));
+void AdministratorRegiste(DoubleList* infoList);
 
 #endif

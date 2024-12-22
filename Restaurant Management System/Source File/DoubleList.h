@@ -18,7 +18,14 @@
 #ifndef __DOUBLELIST__H__
 #define __DOUBLELIST__H__
 
-#include "DSMUtil.h"
+#define _CRT_SECURE_NO_WARNINGS
+#define MALLOC(T) ((T*)malloc(sizeof(T)))
+#define ASSERTPOINTER(T) (NULL != (T))
+
+
+#include <stdbool.h>
+#include <malloc.h>
+#include <assert.h>
 
 /// <summary>
 /// 链表的节点，包含指向前后节点的指针和储存的数据

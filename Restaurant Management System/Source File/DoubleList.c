@@ -16,7 +16,7 @@ ListNode* ListBegin(const DoubleList* const list)
 {
 	if (!AssertList(list))return NULL;
 
-	return ListIsEmpty(list) ? list->m_Head : list->m_Head->m_Next;
+	return list->m_Head->m_Next;
 }
 
 ListNode* ListEnd(const DoubleList* const list)
@@ -37,7 +37,7 @@ ListNode* ListREnd(const DoubleList* const list)
 {
 	if (!AssertList(list))return NULL;
 
-	return ListIsEmpty(list) ? list->m_Head : list->m_Head->m_Pre;
+	return list->m_Head->m_Pre;
 }
 
 DoubleList* CreateList(void* (*constructor)(), void(*destructor)(void*))

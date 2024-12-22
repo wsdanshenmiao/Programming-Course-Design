@@ -5,10 +5,10 @@
 
 enum FoodType
 {
-	VEGETABLE,	// 蔬菜
-	MEAT,		// 肉类
-	DRINKS,		// 饮料
-	DESSERT		// 甜点
+	VEGETABLE = 0,	// 蔬菜
+	MEAT = 1,		// 肉类
+	DRINKS = 2,		// 饮料
+	DESSERT = 3		// 甜点
 };
 
 /// <summary>
@@ -19,12 +19,20 @@ typedef struct FoodInfo {
 	char m_Name[20];			// 名称
 	enum FoodType m_FoodType;	// 类别
 	size_t m_Price;				// 价格
-	size_t m_Stock;				// 库存
 }FoodInfo;
 
 void* CreateFoodInfoData();
 int CmpFoodMenuDataByPrice(void* f0, void* f1);
 int CmpFoodMenuDataByName(void* food, void* name);
+int CmpFoodMenuDataByID(void* food, void* id);
+
+void ShowFoodType();
+void ShowFoodMenu(void* pValue, void* pad);
+void AddFood(DoubleList* foodList);
+void RemoveFood(DoubleList* foodList);
+// 用户选择商品
+ListNode* SelectFood(DoubleList* foodList);
+void SaveFoodInfo(void* pValue, void* operateValue);
 
 #endif // !__FOODMENU__H__
 

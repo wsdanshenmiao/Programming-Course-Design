@@ -1,6 +1,13 @@
 ﻿#include "Administrator.h"
 #include "ManagementAPP.h"
 #include "LoginSystem.h"
+#include "FoodInfo.h"
+#include "Order.h"
+
+// private
+void AdministratorCatalogue();
+ChangeAdministratorInfo(AdministratorInfo* admini);
+
 
 void* CreateAdministratorData()
 {
@@ -31,10 +38,68 @@ void AdministratorSide(ManagementAPP* app)
 {
 	assert(ASSERTPOINTER(app));
 
-	ListNode* adminis = AdministratorLogin(app);
-	if (NULL == adminis)return;
+	ListNode* adminiNode = AdministratorLogin(app);
+	if (NULL == adminiNode)return;
+	AdministratorInfo* adini = (AdministratorInfo*)adminiNode->m_Data;
 
-	printf("Administrator");
+	enum AdministratorMenu {
+		EXIT, SHOWMENU, ADDFOOD, REMOVEFOOD, SHOWALLORDE, PROCESSORDER, INFORMCHANGE
+	};
+	enum AdministratorMenu select;
+
+	do {
+		system("cls");
+		AdministratorCatalogue();	//打印目录
+		printf("请选择:");
+		scanf("%d", &select);
+		CleanInputBuffer();
+		system("cls");
+		switch (select) {
+		case EXIT: {
+			break;
+		}
+		case SHOWMENU: {
+			// 展示菜单
+			ListTraversal(app->m_FoodData, ShowFoodMenu, NULL);
+			break;
+		}
+		case ADDFOOD: {
+			// 更改菜单
+			AddFood(app->m_FoodData);
+			SaveInfoToFile(app->m_FoodDataFileName, app->m_FoodData, SaveFoodInfo);
+			break;
+		}
+		case REMOVEFOOD: {
+			RemoveFood(app->m_FoodData);
+			SaveInfoToFile(app->m_FoodDataFileName, app->m_FoodData, SaveFoodInfo);
+			break;
+		}
+		case SHOWALLORDE: {
+			// 展示订单
+			ListTraversal(app->m_OrderData, ShowAllOrder, NULL);
+			break;
+		}
+		case PROCESSORDER: {
+			ProcessOrder(app->m_OrderData, app->m_OrderDataFileName);
+			SaveInfoToFile(app->m_OrderDataFileName, app->m_OrderData, SaveOrderInfo);
+			break;
+		}
+		case INFORMCHANGE: {
+			// 更改信息
+			ChangeAdministratorInfo(adini);
+			SaveInfoToFile(app->m_AdministratorDataFileName, app->m_AdministratorData, SaveAdministratorInfo);
+			break;
+		}
+		default: {
+			printf("输入错误。\n");
+			break;
+		}
+		}
+		if (select != EXIT) {
+			CleanInputBuffer();
+		}
+		system("cls");
+	} while (select);
 
 }
 
@@ -85,39 +150,53 @@ void SaveAdministratorInfo(void* pValue, void* operateValue)
 	fwrite(pValue, sizeof(AdministratorInfo), 1, pfw);
 }
 
-void AdministratorRegiste(DoubleList* infoList)
+void AdministratorCatalogue()
 {
-	assert(ASSERTPOINTER(infoList));
+	printf("**************   0.返回上一界面	********************\n");
+	printf("**************   1.展示菜品		********************\n");
+	printf("**************   2.加入菜品		********************\n");
+	printf("**************   3.移除菜品		********************\n");
+	printf("**************   4.查看订单		********************\n");
+	printf("**************   5.处理订单		********************\n");
+	printf("**************   6.修改管理员信息	********************\n");
+}
 
-	size_t id = 0;
-	char password[20] = "";
-	int erromes = 0;
-	ListNode* node = NULL;
+ChangeAdministratorInfo(AdministratorInfo* admini)
+{
+	enum Modify {
+		EXIT, ID, PASSWORD
+	};
+	enum Modify select;
 
-	printf("请输入注册的ID：\n");
-	erromes = scanf("%lld", &id);
+	printf("请选择要修改的信息:\n");
+	printf("0.取消修改\t\t1.ID\t\t2.密码\n");
+	scanf("%d", &select);
 	CleanInputBuffer();
-	if (NumInputFailure(erromes)) {
+	system("cls");
+	switch (select) {
+	case EXIT: {	// 退出
+		break;
+	}
+	case ID: {
+		printf("请输入新的ID：\n");
+		size_t id;
+		int erromes = scanf("%lld", &id);
+		CleanInputBuffer();
+		if (NumInputFailure(erromes)) {
+			printf("输入错误。\n");
+			return;
+		}
+		admini->m_ID = id;
+		printf("修改成功。\n");
+		break;
+	}
+	case PASSWORD: {
+		ChangePassword(&admini->m_Password);
+		break;
+	}
+	default: {
 		printf("输入错误。\n");
-		return;
+		break;
 	}
-
-	node = ListFindNode(infoList, &id, CmpAdministratorDataByID);
-	if (ListEnd(infoList) != node) {
-		printf("用户名已经存在\n");
-		return;
 	}
-
-	printf("请输入注册的密码：\n");
-	erromes = scanf("%s", password);
-	CleanInputBuffer();
-	if (StrInputFailure(erromes, password, sizeof(password))) {
-		printf("输入错误。\n");
-		return;
-	}
-
-	node = ListPushBack(infoList);	//插入对象
-	AdministratorInfo* admini = (AdministratorInfo*)node->m_Data;
-	admini->m_ID = id;
-	strncpy(admini->m_Password, password, sizeof(password));
 }

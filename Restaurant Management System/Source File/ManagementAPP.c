@@ -101,30 +101,27 @@ bool ReadDataFromFile(ManagementAPP* app)
 {
 	assert(ASSERTPOINTER(app));
 
-	DoubleList** pList[4] = {
+	DoubleList** pList[3] = {
 		&(app->m_AdministratorData),
 		&(app->m_ClientData),
 		&(app->m_FoodData),
-		&(app->m_OrderData)
 	};
-	const char* fileName[4] = {
+	const char* fileName[3] = {
 		app->m_AdministratorDataFileName,
 		app->m_ClientDataFileName,
 		app->m_FoodDataFileName,
-		app->m_OrderDataFileName
 	};
-	void* (*func[4])() = {
+	void* (*func[3])() = {
 		CreateAdministratorData,
 		CreateClientData,
 		CreateFoodInfoData,
-		CreateOrderInfoData
 	};
-	size_t size[4] = {
+	size_t size[3] = {
 		sizeof(AdministratorInfo),
 		sizeof(ClientInfo),
 		sizeof(FoodInfo),
-		sizeof(OrderInfo)
 	};
+
 	for (int i = 0; i < 3; i++) {
 		DoubleList** list = pList[i];
 		FILE* pfr;
@@ -135,14 +132,17 @@ bool ReadDataFromFile(ManagementAPP* app)
 			pfr = fopen(fileName[i], "rb");
 		}
 		void* value = func[i]();
-		if (!value) {
+		if (NULL == value) {
 			return false;
 		}
 		for (; fread(value, size[i], 1, pfr); ) {
 			ListNode* node = ListPushBack(*list);
 			memcpy(node->m_Data, value, size[i]);
 		}
+		free(value);
+		value = NULL;
 		fclose(pfr);
 	}
-	return true;
+
+	return ReadOrderInfo(app);
 }
