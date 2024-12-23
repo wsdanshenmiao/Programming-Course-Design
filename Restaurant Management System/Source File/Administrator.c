@@ -191,7 +191,7 @@ ChangeAdministratorInfo(AdministratorInfo* admini)
 		break;
 	}
 	case PASSWORD: {
-		ChangePassword(&admini->m_Password);
+		ChangePassword(admini->m_Password);
 		break;
 	}
 	default: {

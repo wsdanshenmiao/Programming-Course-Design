@@ -19,8 +19,6 @@
 #define __DOUBLELIST__H__
 
 #define _CRT_SECURE_NO_WARNINGS
-#define MALLOC(T) ((T*)malloc(sizeof(T)))
-#define ASSERTPOINTER(T) (NULL != (T))
 
 
 #include <stdbool.h>

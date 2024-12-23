@@ -1,8 +1,9 @@
-/****************************************************************************************
+﻿/****************************************************************************************
 	Filename:		DSMUtil.h
 	Author:			danshenmiao
 	Versions:		1.0
 	Creation time:	2024.12.18
+	Finish time:	2024.12.22
 	Abstract:		通用辅助函数
 ****************************************************************************************/
 
@@ -65,13 +66,13 @@ inline bool IsNumber(const char* str, size_t num)
 	return true;
 }
 
-inline void ChangePassword(char** pPassword)
+inline void ChangePassword(char* pPassword)
 {
 	printf("请输入新的密码：\n");
 	char password1[20];
 	int erromes = scanf("%s", password1);
 	CleanInputBuffer();
-	if (StrInputFailure(erromes, password1, sizeof(password1)) || !IsNumber(password1, sizeof(password1))) {
+	if (StrInputFailure(erromes, password1, sizeof(password1)) || !IsNumber(password1, strlen(password1))) {
 		printf("输入错误。\n");
 		return;
 	}
@@ -80,12 +81,12 @@ inline void ChangePassword(char** pPassword)
 	char password2[20];
 	erromes = scanf("%s", password2);
 	CleanInputBuffer();
-	if (StrInputFailure(erromes, password2, sizeof(password2)) || !IsNumber(password2, sizeof(password2))) {
+	if (StrInputFailure(erromes, password2, sizeof(password2)) || !IsNumber(password2, strlen(password2))) {
 		printf("输入错误。\n");
 		return;
 	}
-	if (strncmp(password1, password2, sizeof(password1) == 0)) {
-		strncpy(*pPassword, password2, sizeof(password2));
+	if (strncmp(password1, password2, sizeof(password1)) == 0) {
+		strncpy(pPassword, password2, sizeof(password2));
 		printf("修改成功。\n");
 	}
 	else {

@@ -3,6 +3,7 @@
 	Author:			danshenmiao
 	Versions:		1.0
 	Creation time:	2024.12.19
+	Finish time:	2024.12.22
 	Abstract:		主程序，进行数据的初始化、主要逻辑的执行及数据的释放
 ****************************************************************************************/
 
@@ -10,6 +11,7 @@
 #define __MANAGEMENTAPP__H__
 
 #include "DoubleList.h"
+#include "DSMUtil.h"
 
 /// <summary>
 /// 主程序的数据

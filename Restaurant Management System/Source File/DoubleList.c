@@ -1,3 +1,6 @@
+#define MALLOC(T) ((T*)malloc(sizeof(T)))
+#define ASSERTPOINTER(T) (NULL != (T))
+
 #include "DoubleList.h"
 
 bool AssertList(const DoubleList* const list)

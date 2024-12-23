@@ -233,7 +233,7 @@ void ChangeClientInfo(ClientInfo* client)
 		break;
 	}
 	case PASSWORD: {
-		ChangePassword(&client->m_Password);
+		ChangePassword(client->m_Password);
 		break;
 	}
 	case PHONENUMBER: {
