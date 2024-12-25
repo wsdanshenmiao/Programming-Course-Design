@@ -1,5 +1,6 @@
 ﻿#include "Order.h"
 #include "ManagementAPP.h"
+#include <time.h>
 
 void* CreateOrderInfoData()
 {
@@ -26,7 +27,7 @@ int CmpOrderInfoByOrderNumber(void* order, void* num)
 	OrderInfo* orderInfo = (OrderInfo*)order;
 	size_t orderNum = *((size_t*)num);
 
-	if (orderInfo->m_OrderNumber == num)return 0;
+	if (orderInfo->m_OrderNumber == orderNum)return 0;
 	else return 1;
 }
 
@@ -34,7 +35,7 @@ void OrderDishes(ManagementAPP* app, ClientInfo* client)
 {
 	assert(ASSERTPOINTER(app) && ASSERTPOINTER(client));
 
-	ListTraversal(app->m_FoodData, ShowFoodMenu, NULL);
+	ListTraversal(app->m_FoodData, PrintFoodMenu, NULL);
 	ListNode* foodNode = SelectFood(app->m_FoodData);
 	if (foodNode == ListEnd(app->m_FoodData))return;
 	FoodInfo* food = (FoodInfo*)foodNode->m_Data;
@@ -44,6 +45,7 @@ void OrderDishes(ManagementAPP* app, ClientInfo* client)
 		printf("订单创建失败。\n"); // 如果订单创建失败，输出提示
 		return;
 	}
+	srand((unsigned)time(NULL));
 	OrderInfo* order = (OrderInfo*)orderNode->m_Data;
 	order->m_Client = client;
 	order->m_FoodInfo = food;
@@ -63,7 +65,7 @@ void ShowOrder(void* pValue, void* clientName)
 	if (0 == strncmp(client->m_ClientName, (char*)clientName, sizeof(client->m_ClientName))) {
 		printf("订单编号：%lld\n", order->m_OrderNumber);
 		ShowClientNameAndPhoneNum(order->m_Client, clientName);
-		ShowFoodMenu(order->m_FoodInfo, clientName);
+		PrintFoodMenu(order->m_FoodInfo, clientName);
 		printf("订单状态：%s\n", order->m_OrderStatus);
 	}
 }
@@ -75,8 +77,10 @@ void ShowAllOrder(void* pValue, void* pad)
 	OrderInfo* order = (OrderInfo*)pValue;
 	assert(ASSERTPOINTER(order->m_Client) && ASSERTPOINTER(order->m_FoodInfo));
 
+	printf("订单编号：%lld\n", order->m_OrderNumber);
+	printf("订单状态：%s\n", order->m_OrderStatus);
 	ShowClientNameAndPhoneNum(order->m_Client, pad);
-	ShowFoodMenu(order->m_FoodInfo, pad);
+	PrintFoodMenu(order->m_FoodInfo, pad);
 }
 
 void ProcessOrder(DoubleList* orderList, char* saveFlieName)

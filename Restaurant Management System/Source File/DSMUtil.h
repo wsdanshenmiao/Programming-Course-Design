@@ -30,6 +30,7 @@
 
 #include "DoubleList.h"
 
+
 // general helper code
 // 清除输入缓冲区
 inline void CleanInputBuffer()

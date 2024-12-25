@@ -21,6 +21,7 @@ typedef struct AdministratorInfo {
 void* CreateAdministratorData();
 int CmpAdministratorDataByID(void* ad0, void* ad1);
 int CmpAdministratorDataByPassword(void* ad, void* password);
+int FindAdministratorDataByID(void* ad0, void* ad1);
 
 void AdministratorSide(struct ManagementAPP* app);
 ListNode* FindAdministratorInfo(DoubleList* infoList);

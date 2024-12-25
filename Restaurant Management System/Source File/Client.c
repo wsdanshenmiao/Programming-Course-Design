@@ -69,7 +69,7 @@ void ClientSide(ManagementAPP* app)
 		}
 		case SHOWMENU: {
 			// 展示菜单
-			ListTraversal(app->m_FoodData, ShowFoodMenu, NULL);
+			ShowFoodMenu(app->m_FoodData);
 			break;
 		}
 		case ORDERDISHES: {
@@ -100,7 +100,7 @@ void ClientSide(ManagementAPP* app)
 			break;
 		}
 		}
-		if (select != EXIT) {
+		if (select != EXIT && select != SHOWMENU) {
 			CleanInputBuffer();
 		}
 		system("cls");
@@ -176,12 +176,12 @@ void ShowClientAllInfo(void* pValue, void* pad)
 
 void ClientCatalogue()
 {
-	printf("*****************  0.返回主界面      ********************\n");
-	printf("*****************  1.展示菜单        ********************\n");
-	printf("*****************  2.点餐	        ********************\n");
-	printf("*****************  3.查看已点菜餐	    ********************\n");
-	printf("*****************  4.账户充值        ********************\n");
-	printf("*****************  5.资料修改        ********************\n");
+	printf("*****************	0.返回主界面		********************\n");
+	printf("*****************	1.展示菜单		********************\n");
+	printf("*****************	2.点餐			********************\n");
+	printf("*****************	3.查看已点菜餐	********************\n");
+	printf("*****************	4.账户充值		********************\n");
+	printf("*****************	5.资料修改		********************\n");
 }
 
 void Recharge(ClientInfo* client)

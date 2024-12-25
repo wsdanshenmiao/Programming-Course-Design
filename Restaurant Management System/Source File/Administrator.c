@@ -17,7 +17,17 @@ void* CreateAdministratorData()
 	return (void*)ad;
 }
 
-int CmpAdministratorDataByID(void* ad0, void* id)
+int CmpAdministratorDataByID(void* ad0, void* ad1)
+{
+	assert(ASSERTPOINTER(ad0) && ASSERTPOINTER(ad1));
+	size_t id0 = ((AdministratorInfo*)ad0)->m_ID;
+	size_t id1 = ((AdministratorInfo*)ad1)->m_ID;
+	if (id0 > id1)return 1;
+	else if (id0 == id1)return 0;
+	else return -1;
+}
+
+int FindAdministratorDataByID(void* ad0, void* id)
 {
 	assert(ASSERTPOINTER(ad0) && ASSERTPOINTER(id));
 	size_t id0 = ((AdministratorInfo*)ad0)->m_ID;
@@ -60,7 +70,7 @@ void AdministratorSide(ManagementAPP* app)
 		}
 		case SHOWMENU: {
 			// 展示菜单
-			ListTraversal(app->m_FoodData, ShowFoodMenu, NULL);
+			ShowFoodMenu(app->m_FoodData);
 			break;
 		}
 		case ADDFOOD: {
@@ -120,7 +130,7 @@ ListNode* FindAdministratorInfo(DoubleList* infoList)
 		return NULL;
 	}
 
-	node = ListFindNode(infoList, &id, CmpAdministratorDataByID);
+	node = ListFindNode(infoList, &id, FindAdministratorDataByID);
 	if (node == ListEnd(infoList)) {
 		printf("ID不存在\n");
 		return NULL;

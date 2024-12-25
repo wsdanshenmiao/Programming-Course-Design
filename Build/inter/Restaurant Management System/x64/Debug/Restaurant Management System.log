@@ -1,81 +1,4 @@
-﻿  Administrator.c
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\Administrator.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/Administrator.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\DoubleList.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/Administrator.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\ManagementAPP.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/Administrator.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\LoginSystem.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/Administrator.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\Order.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/Administrator.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\Client.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/Administrator.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\Administrator.c(187,4): warning C4033: “ChangeAdministratorInfo”必须返回值
-  Client.c
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\Client.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/Client.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\DoubleList.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/Client.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\ManagementAPP.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/Client.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\LoginSystem.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/Client.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\Order.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/Client.c”)
-  
-  FoodInfo.c
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\DoubleList.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/FoodInfo.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\FoodInfo.c(84,9): warning C4101: “stock”: 未引用的局部变量
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\FoodInfo.c(160,22): warning C4133: “函数”: 从“ListNode *”到“const DoubleList *const ”的类型不兼容
-  LoginSystem.c
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\LoginSystem.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/LoginSystem.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\DoubleList.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/LoginSystem.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\ManagementAPP.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/LoginSystem.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\Client.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/LoginSystem.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\Administrator.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/LoginSystem.c”)
-  
-  ManagementAPP.c
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\ManagementAPP.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/ManagementAPP.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\DoubleList.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/ManagementAPP.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\Administrator.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/ManagementAPP.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\Client.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/ManagementAPP.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\Order.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/ManagementAPP.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\LoginSystem.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/ManagementAPP.c”)
-  
-  Order.c
+﻿  Order.c
 D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\Order.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   (编译源文件“Source%20File/Order.c”)
   
@@ -88,13 +11,4 @@ D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\
 D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\ManagementAPP.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   (编译源文件“Source%20File/Order.c”)
   
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\Order.c(29,31): warning C4047: “==”:“size_t”与“void *”的间接级别不同
-  main.c
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\ManagementAPP.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/main.c”)
-  
-D:\Code\C\Restaurant Management System\Restaurant Management System\Source File\DoubleList.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“Source%20File/main.c”)
-  
-  正在生成代码...
   Restaurant Management System.vcxproj -> D:\Code\C\Restaurant Management System\Build\bin\x64\Debug\Restaurant Management System.exe

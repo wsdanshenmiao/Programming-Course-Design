@@ -33,6 +33,7 @@ ListNode* ManagementAPPLogin(
 		case REGISTER: {  //注册
 			registe(infoList);
 			SaveInfoToFile(fileName, infoList, saveInfo);
+			getchar();
 			break;
 		}
 		case LOGIN: {	//登录
@@ -42,6 +43,7 @@ ListNode* ManagementAPPLogin(
 			}
 			else {
 				printf("登录成功\n");
+				getchar();
 				return node;
 			}
 			getchar();
@@ -160,7 +162,7 @@ void AdministratorRegiste(DoubleList* infoList)
 		return;
 	}
 
-	node = ListFindNode(infoList, &id, CmpAdministratorDataByID);
+	node = ListFindNode(infoList, &id, FindAdministratorDataByID);
 	if (ListEnd(infoList) != node) {
 		printf("用户名已经存在\n");
 		return;

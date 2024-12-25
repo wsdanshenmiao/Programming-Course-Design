@@ -1,7 +1,9 @@
-#define MALLOC(T) ((T*)malloc(sizeof(T)))
-#define ASSERTPOINTER(T) (NULL != (T))
-
 #include "DoubleList.h"
+#include "DSMUtil.h"
+#include <time.h>
+
+void _QuickSort(ListNode* start, ListNode* end, int cmp(void*, void*), bool increase);
+
 
 bool AssertList(const DoubleList* const list)
 {
@@ -33,14 +35,14 @@ ListNode* ListRBegin(const DoubleList* const list)
 {
 	if (!AssertList(list))return NULL;
 
-	return list->m_Head;
+	return list->m_Head->m_Pre;
 }
 
 ListNode* ListREnd(const DoubleList* const list)
 {
 	if (!AssertList(list))return NULL;
 
-	return list->m_Head->m_Pre;
+	return list->m_Head;
 }
 
 DoubleList* CreateList(void* (*constructor)(), void(*destructor)(void*))
@@ -160,14 +162,21 @@ ListNode* ListInsertNode(DoubleList* list, ListNode* pos)
 	if (NULL == newNode)return NULL;
 
 	newNode->m_Data = list->constructor();
-	newNode->m_Next = pos;
-	newNode->m_Pre = pos->m_Pre;
+	ListMoveNode(list, pos, newNode);
+	return newNode;
+}
 
-	pos->m_Pre->m_Next = newNode;
-	pos->m_Pre = newNode;
+void ListMoveNode(DoubleList* list, ListNode* pos, ListNode* node)
+{
+	if (!AssertList(list) || NULL == pos || NULL == node)return NULL;
+
+	node->m_Next = pos;
+	node->m_Pre = pos->m_Pre;
+
+	pos->m_Pre->m_Next = node;
+	pos->m_Pre = node;
 
 	++list->m_Size;
-	return newNode;
 }
 
 ListNode* ListEraseNode(DoubleList* list, ListNode* pos)
@@ -210,6 +219,22 @@ void ListTraversal(DoubleList* list, void operation(void*, void*), void* operate
 	}
 }
 
+void ListSortintIncrease(DoubleList* list, int cmpFunc(void*, void*))
+{
+	assert(ASSERTPOINTER(cmpFunc));
+	if (!AssertList(list) || ListIsEmpty(list)) return;
+
+	_QuickSort(list->m_Head->m_Next, list->m_Head->m_Pre, cmpFunc, true);
+}
+
+void ListSortintDecrease(DoubleList* list, int cmpFunc(void*, void*))
+{
+	assert(ASSERTPOINTER(cmpFunc));
+	if (!AssertList(list) || ListIsEmpty(list)) return;
+
+	_QuickSort(list->m_Head->m_Next, list->m_Head->m_Pre, cmpFunc, false);
+}
+
 void ListClear(DoubleList* list)
 {
 	if (!AssertList(list)) return;
@@ -239,5 +264,66 @@ void NodeDataDefaultDestructor(void* pValue)
 	}
 }
 
+void _QuickSort(ListNode* start, ListNode* end, int cmp(void*, void*), bool increase)
+{
+	assert(ASSERTPOINTER(start) && ASSERTPOINTER(end) && ASSERTPOINTER(cmp));
+	if (start == end)return;
 
+	ListNode* left = start;
+	ListNode* right = end;
+	ListNode* preLeft = NULL;
+	ListNode* preRight = NULL;
+	ListNode* pivot = left;
+	void* tmp = NULL;
+
+	while (left != right) {
+		while (left != right) {
+			int cmpValue = cmp(right->m_Data, pivot->m_Data);
+			cmpValue = increase ? cmpValue : -cmpValue;
+			if (cmpValue < 0) break;
+
+			right = right->m_Pre;
+		}
+		preLeft = left;
+		preRight = right;
+		tmp = left->m_Data;
+		left->m_Data = right->m_Data;
+		right->m_Data = tmp;
+		if (preLeft == pivot) {
+			pivot = right;
+		}
+		else if (preRight == pivot) {
+			pivot = left;
+		}
+
+		while (left != right) {
+			int cmpValue = cmp(pivot->m_Data, left->m_Data);
+			cmpValue = increase ? cmpValue : -cmpValue;
+			if (cmpValue < 0) break;
+
+			left = left->m_Next;
+		}
+		preLeft = left;
+		preRight = right;
+		tmp = left->m_Data;
+		left->m_Data = right->m_Data;
+		right->m_Data = tmp;
+		if (preLeft == pivot) {
+			pivot = right;
+		}
+		else if (preRight == pivot) {
+			pivot = left;
+		}
+	}
+	tmp = left->m_Data;
+	left->m_Data = pivot->m_Data;
+	pivot->m_Data = tmp;
+
+	if (left != start) {
+		_QuickSort(start, left, cmp, increase);
+	}
+	if (left != end) {
+		_QuickSort(left->m_Next, end, cmp, increase);
+	}
+}
 

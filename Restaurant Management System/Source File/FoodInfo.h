@@ -36,12 +36,13 @@ int CmpFoodMenuDataByName(void* food, void* name);
 int CmpFoodMenuDataByID(void* food, void* id);
 
 void ShowFoodType();
-void ShowFoodMenu(void* pValue, void* pad);
+void PrintFoodMenu(void* pValue, void* pad);
 void AddFood(DoubleList* foodList);
 void RemoveFood(DoubleList* foodList);
 // 用户选择商品
 ListNode* SelectFood(DoubleList* foodList);
 void SaveFoodInfo(void* pValue, void* operateValue);
+void ShowFoodMenu(DoubleList* list);
 
 #endif // !__FOODMENU__H__
 

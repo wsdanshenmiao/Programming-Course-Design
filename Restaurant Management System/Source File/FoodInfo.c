@@ -44,7 +44,7 @@ void ShowFoodType()
 	printf("**************		3.甜点		********************\n");
 }
 
-void ShowFoodMenu(void* pValue, void* pad)
+void PrintFoodMenu(void* pValue, void* pad)
 {
 	assert(ASSERTPOINTER(pValue));
 
@@ -71,12 +71,12 @@ void ShowFoodMenu(void* pValue, void* pad)
 		break;
 	}
 	printf("%s\n", foodType);
-	printf("菜品价格：%lld\n", food->m_Price);
+	printf("菜品价格：%lld\n\n", food->m_Price);
 }
 
 void AddFood(DoubleList* foodList)
 {
-	ListTraversal(foodList, ShowFoodMenu, NULL);
+	ListTraversal(foodList, PrintFoodMenu, NULL);
 	size_t id;
 	char name[20];
 	int type;
@@ -144,7 +144,7 @@ void AddFood(DoubleList* foodList)
 
 void RemoveFood(DoubleList* foodList)
 {
-	ListTraversal(foodList, ShowFoodMenu, NULL);
+	ListTraversal(foodList, PrintFoodMenu, NULL);
 
 	size_t id;
 
@@ -188,4 +188,42 @@ void SaveFoodInfo(void* pValue, void* operateValue)
 {
 	FILE* pfw = (FILE*)operateValue;
 	fwrite(pValue, sizeof(FoodInfo), 1, pfw);
+}
+
+void ShowFoodMenu(DoubleList* list)
+{
+	enum ClientMenu {
+		EXIT, Increase, Decrease
+	};
+	enum ClientMenu select = Increase;
+
+	system("cls");
+	ListTraversal(list, PrintFoodMenu, NULL);
+	while (select) {
+		printf("退出：0，价格由低到高：1，价格由高到低：2\n");
+		printf("请选择:");
+		scanf("%d", &select);
+		CleanInputBuffer();
+		system("cls");
+		switch (select) {
+		case EXIT: {
+			break;
+		}
+		case Increase: {
+			ListSortintIncrease(list, CmpFoodMenuDataByPrice);
+			ListTraversal(list, PrintFoodMenu, NULL);
+			break;
+		}
+		case Decrease: {
+			ListSortintDecrease(list, CmpFoodMenuDataByPrice);
+			ListTraversal(list, PrintFoodMenu, NULL);
+			break;
+		}
+		default: {
+			printf("输入错误。\n");
+			break;
+		}
+		}
+	}
+	system("cls");
 }

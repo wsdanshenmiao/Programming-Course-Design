@@ -14,12 +14,19 @@
 	Finish time:	2024.12.20
 	Abstract:		更改接口名称，加入断言指针,修复Erase的问题
 ****************************************************************************************/
+/****************************************************************************************
+	Filename:		DoubleList.h
+	Author:			danshenmiao
+	Versions:		3.0
+	Creation time:	2024.12.24
+	Finish time:	2024.12.25
+	Abstract:		加入递归版本的快速排序
+****************************************************************************************/
 
 #ifndef __DOUBLELIST__H__
 #define __DOUBLELIST__H__
 
 #define _CRT_SECURE_NO_WARNINGS
-
 
 #include <stdbool.h>
 #include <malloc.h>
@@ -135,6 +142,13 @@ void ListPopFront(DoubleList* list);
 /// <returns></returns>
 ListNode* ListInsertNode(DoubleList* list, ListNode* pos);
 
+/// <summary>
+/// 将node插入到pos之前,注意node不能在当前链表中
+/// </summary>
+/// <param name="list"></param>
+/// <param name="pos"></param>
+/// <param name="node"></param>
+void ListMoveNode(DoubleList* list, ListNode* pos, ListNode* node);
 
 /// <summary>
 /// 移除pos处的元素，并返回其后面的元素
@@ -161,6 +175,15 @@ ListNode* ListFindNode(DoubleList* list, void* cmpValue, int cmpFunc(void*, void
 /// <param name="operation"></param>	对链表内部数据进行操作的函数
 /// <param name="operateValue"></param>
 void ListTraversal(DoubleList* list, void operation(void*, void*), void* operateValue);
+
+
+/// <summary>
+/// 排序链表
+/// </summary>
+/// <param name="list"></param>
+/// <param name="cmpFunc"></param>
+void ListSortintIncrease(DoubleList* list, int cmpFunc(void*, void*));
+void ListSortintDecrease(DoubleList* list, int cmpFunc(void*, void*));
 
 
 /// <summary>
