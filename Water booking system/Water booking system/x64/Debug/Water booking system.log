@@ -1,0 +1,8 @@
+﻿  LoginSystem.c
+D:\Code\C\C-Practice\Water booking system\Water booking system\LoginSystem.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+D:\Code\C\C-Practice\Water booking system\Water booking system\LoginSystem.c(18,2): warning C4013: “CleanBuffer”未定义；假设外部返回 int
+D:\Code\C\C-Practice\Water booking system\Water booking system\LoginSystem.c(19,6): warning C4013: “StrInputFailure”未定义；假设外部返回 int
+D:\Code\C\C-Practice\Water booking system\Water booking system\LoginSystem.c(118,6): warning C4013: “NumInputFailure”未定义；假设外部返回 int
+D:\Code\C\C-Practice\Water booking system\Water booking system\LoginSystem.c(169,5): warning C4033: “UserLoginUI”必须返回值
+D:\Code\C\C-Practice\Water booking system\Water booking system\LoginSystem.c(202): warning C4715: “UserLoginUI”: 不是所有的控件路径都返回值
+  Water booking system.vcxproj -> D:\Code\C\C-Practice\Water booking system\x64\Debug\Water booking system.exe

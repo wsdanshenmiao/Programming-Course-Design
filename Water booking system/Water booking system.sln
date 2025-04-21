@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Water booking system", "Water booking system\Water booking system.vcxproj", "{911D8C79-86DF-4F5C-B13F-CDDEEF75D7BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{911D8C79-86DF-4F5C-B13F-CDDEEF75D7BF}.Debug|x64.ActiveCfg = Debug|x64
+		{911D8C79-86DF-4F5C-B13F-CDDEEF75D7BF}.Debug|x64.Build.0 = Debug|x64
+		{911D8C79-86DF-4F5C-B13F-CDDEEF75D7BF}.Debug|x86.ActiveCfg = Debug|Win32
+		{911D8C79-86DF-4F5C-B13F-CDDEEF75D7BF}.Debug|x86.Build.0 = Debug|Win32
+		{911D8C79-86DF-4F5C-B13F-CDDEEF75D7BF}.Release|x64.ActiveCfg = Release|x64
+		{911D8C79-86DF-4F5C-B13F-CDDEEF75D7BF}.Release|x64.Build.0 = Release|x64
+		{911D8C79-86DF-4F5C-B13F-CDDEEF75D7BF}.Release|x86.ActiveCfg = Release|Win32
+		{911D8C79-86DF-4F5C-B13F-CDDEEF75D7BF}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {511F1A39-AEFC-4188-97B4-5E406B03525C}
+	EndGlobalSection
+EndGlobal
