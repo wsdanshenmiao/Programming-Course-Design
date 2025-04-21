@@ -54,3 +54,5 @@ OrderData.dat
 AdministratorData.dat 
 ClientData.dat 
 FoodData.dat
+
+*.vs
