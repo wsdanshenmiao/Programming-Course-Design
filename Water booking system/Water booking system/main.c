@@ -10,47 +10,6 @@
 
 #define MALLOC(T) ((T*)malloc(sizeof(T)))
 
-void MasterCatalogue()
-{
-	printf("æ¬¢è¿ä½¿ç”¨è®¢æ°´ä¿¡æ¯ç®¡ç†ç³»ç»Ÿï¼Œè¯·è¾“å…¥æ•°å­—é€‰æ‹©æƒ³è¦è¿›è¡Œçš„æ“ä½œ\n");
-	printf("*****************  0.é€€å‡ºç¨‹åº     ********************\n");
-	printf("*****************  1.ç”¨æˆ·é€šé“     ********************\n");
-	printf("*****************  2.å•†å®¶é€šé“     ********************\n");
-}
-
-void MasterUI()
-{
-	enum MasterMenu {
-		EXIT, USER, MERCHANT
-	};
-	enum MasterMenu select;
-	do {
-		MasterCatalogue();	//æ‰“å°ç›®å½•
-		printf("è¯·é€‰æ‹©:");
-		scanf("%d", &select);
-		CleanBuffer();
-		system("cls");
-		switch (select) {
-		case EXIT:
-
-			break;
-		case USER: {
-			UserUI();
-			break;
-		}
-		case MERCHANT: {
-			MerchantUI();
-			break;
-		}
-		default: {
-			printf("è¾“å…¥é”™è¯¯ã€‚\n");
-			getchar();
-			break;
-		}
-		}
-		system("cls");
-	} while (select);
-}
 
 void* InitOrderForm()
 {
@@ -72,7 +31,6 @@ bool InitInformation()
 	g_OrderForm = InitList(DefaultDeallocate);
 	g_Userinfo = InitList(DefaultDeallocate);
 	g_Commodity = InitList(DefaultDeallocate);
-
 	List** pList[3] = {
 		&g_OrderForm,
 		&g_Userinfo,
@@ -106,11 +64,71 @@ bool InitInformation()
 		if (!value) {
 			return false;
 		}
-		for (; fread(value, size[i], 1, pfr); PushFront(*list, value));
+		for (; fread(value, size[i], 1, pfr); ) {
+			PushFront(*list, value);
+			value = func[i]();
+			if (!value) {
+				return false;
+			}
+		}
+		free(value);
+		value = NULL;
 		fclose(pfr);
 	}
 	return true;
 }
+
+void DestroyData()
+{
+	Destroy(g_Commodity);
+	Destroy(g_OrderForm);
+	Destroy(g_Userinfo);
+}
+
+void MasterCatalogue()
+{
+	printf("»¶Ó­Ê¹ÓÃ¶©Ë®ĞÅÏ¢¹ÜÀíÏµÍ³£¬ÇëÊäÈëÊı×ÖÑ¡ÔñÏëÒª½øĞĞµÄ²Ù×÷\n");
+	printf("*****************  0.ÍË³ö³ÌĞò     ********************\n");
+	printf("*****************  1.ÓÃ»§Í¨µÀ     ********************\n");
+	printf("*****************  2.ÉÌ¼ÒÍ¨µÀ     ********************\n");
+}
+
+void MasterUI()
+{
+	enum MasterMenu {
+		EXIT, USER, MERCHANT
+	};
+	enum MasterMenu select;
+	do {
+		MasterCatalogue();	//´òÓ¡Ä¿Â¼
+		printf("ÇëÑ¡Ôñ:");
+		scanf("%d", &select);
+		CleanBuffer();
+		system("cls");
+		switch (select) {
+		case EXIT:
+			SaveCommodity();
+			SaveOrderForm();
+			SaveUserinfo();
+			break;
+		case USER: {
+			UserUI();
+			break;
+		}
+		case MERCHANT: {
+			MerchantUI();
+			break;
+		}
+		default: {
+			printf("ÊäÈë´íÎó¡£\n");
+			getchar();
+			break;
+		}
+		}
+		system("cls");
+	} while (select);
+}
+
 
 int main()
 {
@@ -118,5 +136,6 @@ int main()
 		return 0;
 	}
 	MasterUI();
+	DestroyData();
 	return 0;
 }

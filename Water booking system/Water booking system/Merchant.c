@@ -1,4 +1,4 @@
-ï»¿#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 
 #include "Merchant.h"
 
@@ -7,161 +7,169 @@
 
 void MerchantCatalogue()
 {
-	printf("**************   0.è¿”å›ä¸Šä¸€ç•Œé¢   ********************\n");
-	printf("**************   1.æ·»åŠ å•†å“       ********************\n");
-	printf("**************   2.æŸ¥çœ‹å•†å“       ********************\n");
-	printf("**************   3.ä¿®æ”¹å•†å“ä¿¡æ¯   ********************\n");
-	printf("**************   4.ä¿®æ”¹è®¢å•ä¿¡æ¯   ********************\n");
+	printf("**************   0.·µ»ØÉÏÒ»½çÃæ   ********************\n");
+	printf("**************   1.Ìí¼ÓÉÌÆ·       ********************\n");
+	printf("**************   2.²é¿´ÉÌÆ·       ********************\n");
+	printf("**************   3.ĞŞ¸ÄÉÌÆ·ĞÅÏ¢   ********************\n");
+	printf("**************   4.ĞŞ¸Ä¶©µ¥ĞÅÏ¢   ********************\n");
+	printf("**************   5.É¾³ıÉÌÆ·ĞÅÏ¢   ********************\n");
+	printf("**************   6.É¾³ı¶©µ¥ĞÅÏ¢   ********************\n");
 }
 
-// æ‰“å°å•†å“é“¾è¡¨
-void PrintProducts(void* pValue, void* operateValue)
-{
-	Commodity* commodity = (Commodity*)pValue;
-	printf("%s\t%zu\n", commodity->m_CommodityName, commodity->m_CommodityPrices);
-}
 
-// åˆ›å»ºå¯¹è±¡
+// ´´½¨¶ÔÏó
 Commodity* NewProduct(const char* name, size_t price)
 {
-	Commodity* commodity = MALLOC(Commodity);
+	Commodity* commodity = MALLOC(Commodity);    //malloc·µ»ØÖ¸Õë
 	if (!commodity) {
 		return NULL;
 	}
-	strncpy(commodity->m_CommodityName, name, sizeof(name));
-	commodity->m_CommodityPrices = price;
+	strncpy(commodity->m_CommodityName, name, sizeof(commodity->m_CommodityName));		//½«nameµÄÊı¾İ¸³¸ø½á¹¹ÌåÖĞµÄ±äÁ¿
+	commodity->m_CommodityPrices = price;		//½«price¸³¸ø½á¹¹ÌåÖĞ¶ÔÓ¦µÄ±äÁ¿
 	return commodity;
 }
 
-// åå­—æŸ¥æ‰¾å‡½æ•°
+// Ãû×Ö²éÕÒº¯Êı
 bool FindName(void* pValue, void* cmpValue)
 {
 	Commodity* commodity = (Commodity*)pValue;
 	return strncmp(commodity->m_CommodityName, (char*)cmpValue, sizeof((char*)cmpValue)) == 0;
 }
 
-// æ·»åŠ å•†å“
+// Ìí¼ÓÉÌÆ·
 void AddProducts()
 {
-	printf("è¯·è¾“å…¥å•†å“åç§°ï¼š\n");
+	printf("ÇëÊäÈëÉÌÆ·Ãû³Æ£º\n");
 	char name[20];
-	int erromes = scanf("%s", name);
+	int erromes = scanf("%s", name);		
 	CleanBuffer();
 	if (StrInputFailure(erromes, name, sizeof(name))) {
-		printf("è¾“å…¥é”™è¯¯ã€‚\n");
+		printf("ÊäÈë´íÎó¡£\n");					//erromes´æ´¢scanfµÄ·µ»ØÖµ£¬scanf´æÔÚ·µ»ØÖµ0»ò-1,Í¨¹ı·µ»ØÖµÅĞ¶ÏÊäÈëÊÇ·ñÕıÈ·
 		return;
 	}
 
-	printf("è¯·è¾“å…¥å•†å“ä»·æ ¼ï¼š\n");
+	printf("ÇëÊäÈëÉÌÆ·¼Û¸ñ£º\n");
 	size_t price;
 	erromes = scanf("%zu", &price);
 	CleanBuffer();
-	printf("æ·»åŠ æˆåŠŸ\n");
-	if (NumInputFailure(erromes)) {
-		printf("è¾“å…¥é”™è¯¯ã€‚\n");
+	printf("Ìí¼Ó³É¹¦\n");
+	//printf("ÊÇ·ñ¼ÌĞøÌí¼Ó\n");
+	//printf("0.ÊÇ\n");
+	//printf("1.·ñ\n");
+	if (NumInputFailure(erromes)) {				//Óë×Ö·û´®¼ì²âÍ¬Àí
+		printf("ÊäÈë´íÎó¡£\n");
 		return;
 	}
-	Commodity* commodity = NewProduct(name, price);	//æ„é€ å¯¹è±¡
+	Commodity* commodity = NewProduct(name, price);	//¹¹Ôì¶ÔÏó
 	if (!commodity) {
 		return;
 	}
-	PushFront(g_Commodity, commodity);	//æ’å…¥å¯¹è±¡
+	PushFront(g_Commodity, commodity);	//²åÈëĞÂÌí¼ÓµÄÉÌÆ·ĞÅÏ¢
 }
 
 
 
-// é€‰æ‹©ä¿®æ”¹çš„å•†å“
+// Ñ¡ÔñĞŞ¸ÄµÄÉÌÆ·
 Node* ChooseProduct()
 {
-	printf("è¯·è¾“å…¥è¦ä¿®æ”¹å•†å“çš„åå­—ï¼š\n");
+	printf("ÇëÊäÈëÒªĞŞ¸ÄÉÌÆ·µÄÃû×Ö£º\n");
 	char name[20];
 	int erromes = scanf("%s", name);
 	CleanBuffer();
 	if (StrInputFailure(erromes, name, sizeof(name))) {
 		return NULL;
 	}
-	return Find(g_Commodity, FindName, name);
+	return Find(g_Commodity, FindName, name);		//ÔÚg_CommodityÁ´±íÄÚ²éÕÒÊÇ·ñ´æÔÚÓënameÏàµÈµÄÊı¾İ
 }
 
-// ä¿®æ”¹å•†å“
+// ĞŞ¸ÄÉÌÆ·
 void ModifyProducts()
 {
-	Node* node = ChooseProduct();
+	Node* node = ChooseProduct();			//¸ù¾İ·µ»ØÖµ¾ö¶¨ÏÂÒ»²½²Ù×÷
 	if (!node) {
-		printf("æœªæœ‰æ­¤å•†å“ã€‚\n");
+		printf("Î´ÓĞ´ËÉÌÆ·¡£\n");
 		return;
 	}
-	system("cls");
+	//system("cls");
 	enum Modify {
 		EXIT, NAME, PRICE
 	};
 	enum Modify select;
-	printf("è¯·é€‰æ‹©è¦ä¿®æ”¹çš„æˆå‘˜:\n");
-	printf("0.å–æ¶ˆä¿®æ”¹\t\t1.åå­—\t\t2.ä»·æ ¼\n");
+	printf("ÇëÑ¡ÔñÒªĞŞ¸ÄµÄ³ÉÔ±:\n");
+	printf("0.È¡ÏûĞŞ¸Ä\t\t1.Ãû×Ö\t\t2.¼Û¸ñ\n");
 	scanf("%d", &select);
 	CleanBuffer();
 	switch (select) {
-	case EXIT: {	// é€€å‡º
+	case EXIT: {	// ÍË³ö
 		break;
 	}
 	case NAME: {
-		printf("è¯·è¾“å…¥æ–°çš„åå­—ï¼š\n");
+		printf("ÇëÊäÈëĞÂµÄÃû×Ö£º\n");
 		char name[20];
 		int erromes = scanf("%s", name);
 		CleanBuffer();
 		if (StrInputFailure(erromes, name, sizeof(name))) {
-			printf("è¾“å…¥é”™è¯¯ã€‚\n");
+			printf("ÊäÈë´íÎó¡£\n");
 			return;
 		}
-		strncpy(((Commodity*)(node->m_Data))->m_CommodityName, name, sizeof(name));
-		printf("ä¿®æ”¹æˆåŠŸã€‚\n");
+		Commodity* commodity = (Commodity*)(node->m_Data);			
+		strncpy(commodity->m_CommodityName, name, sizeof(commodity->m_CommodityName));
+		printf("ĞŞ¸Ä³É¹¦¡£\n");
 		break;
 	}
 	case PRICE: {
-		printf("è¯·è¾“å…¥æ–°çš„ä»·æ ¼ï¼š\n");
+		printf("ÇëÊäÈëĞÂµÄ¼Û¸ñ£º\n");
 		size_t price;
 		int erromes = scanf("%lld", &price);
 		CleanBuffer();
 		if (NumInputFailure(erromes)) {
-			printf("è¾“å…¥é”™è¯¯ã€‚\n");
+			printf("ÊäÈë´íÎó¡£\n");
 			return;
 		}
 		((Commodity*)(node->m_Data))->m_CommodityPrices = price;
-		printf("ä¿®æ”¹æˆåŠŸã€‚\n");
+		printf("ĞŞ¸Ä³É¹¦¡£\n");
 		break;
 	}
 	default: {
-		printf("è¾“å…¥é”™è¯¯ã€‚\n");
+		printf("ÊäÈë´íÎó¡£\n");
 		getchar();
 		break;
 	}
 	}
 }
 
-
-
-// æ‰“å°è®¢å•é“¾è¡¨
-void PrintOrderForm(void* pValue, void* operateValue)
+//É¾³ıÉÌÆ·
+void DelProducts()
 {
-	OrderForm* orderForm = (OrderForm*)(pValue);
-	printf("%zu\t%s\t%zu\t%zu\t%s\t%s\t%s\t%s\n",
-		orderForm->m_OrderNumber, orderForm->m_CommodityName,
-		orderForm->m_CommodityNum, orderForm->m_CommodityPrices,
-		orderForm->m_UserName, orderForm->m_UserPhoneNum,
-		orderForm->m_UserAddress, orderForm->m_OrderStatus);
+	printf("ÇëÊäÈëÒªÉ¾³ıÉÌÆ·µÄÃû×Ö£º\n");
+	char name[20];
+	int erromes = scanf("%s", name);
+	CleanBuffer();
+	if (StrInputFailure(erromes, name, sizeof(name))) {
+		return NULL;
+	}
+	Node* node = Find(g_Commodity, FindName, name);
+	if (!node) {
+		printf("Î´ÓĞ´ËÉÌÆ·¡£\n");
+		return;
+	}
+
+	Erase(g_Commodity, node);
+	printf("ÉÌÆ·ÒÑ¾­É¾³ı\n");
 }
 
-// æŸ¥æ‰¾å‡½æ•°
+
+// ²éÕÒº¯Êı
 bool FindOrderForm(void* pValue, void* cmpValue)
 {
 	OrderForm* orderForm = (OrderForm*)pValue;
 	return orderForm->m_OrderNumber == *((size_t*)cmpValue);
 }
 
-// é€‰æ‹©è®¢å•
+// Ñ¡Ôñ¶©µ¥
 Node* ChooseOrderForm()
 {
-	printf("è¯·è¾“å…¥è¦ç®¡ç†çš„è®¢å•ç¼–å·ï¼š\n");
+	printf("ÇëÊäÈëÒª¹ÜÀíµÄ¶©µ¥±àºÅ£º\n");
 	size_t orderNum;
 	int erromes = scanf("%zu", &orderNum);
 	CleanBuffer();
@@ -171,123 +179,144 @@ Node* ChooseOrderForm()
 	return Find(g_OrderForm, FindOrderForm, &orderNum);
 }
 
-// ç®¡ç†é…é€çŠ¶æ€
+// ¹ÜÀíÅäËÍ×´Ì¬
 void ManageDistribute()
 {
 	TraversalOperation(g_OrderForm, PrintOrderForm, NULL);
 	Node* node = ChooseOrderForm();
 	if (!node) {
-		printf("æœªæœ‰æ­¤è®¢å•ã€‚\n");
+		printf("Î´ÓĞ´Ë¶©µ¥¡£\n");
 		return;
 	}
 	enum Modify {
 		EXIT, INDELIVERY, HAVEBEENDELIVERED
 	};
 	enum Modify select;
-	printf("è¯·é€‰æ‹©è¦ä¿®æ”¹çš„æˆå‘˜:\n");
-	printf("0.å–æ¶ˆä¿®æ”¹\t\t1.é…é€ä¸­\t\t2.å·²é€è¾¾\n");
+	printf("ÇëÑ¡ÔñÒªĞŞ¸ÄµÄ¶©µ¥×´Ì¬:\n");
+	printf("0.È¡ÏûĞŞ¸Ä\t\t1.ÅäËÍÖĞ\t\t2.ÒÑËÍ´ï\n");
 	scanf("%d", &select);
 	CleanBuffer();
-	system("cls");
+	//system("cls");
 	switch (select) {
-	case EXIT: {	// é€€å‡º
+	case EXIT: {	// ÍË³ö
 		break;
 	}
 	case INDELIVERY: {
-		strncpy(((OrderForm*)node->m_Data)->m_OrderStatus, "é…é€ä¸­", sizeof("é…é€ä¸­"));
-		printf("ä¿®æ”¹æˆåŠŸã€‚\n");
+		strncpy(((OrderForm*)node->m_Data)->m_OrderStatus, "ÅäËÍÖĞ", sizeof("ÅäËÍÖĞ"));
+		printf("ĞŞ¸Ä³É¹¦¡£\n");
 		break;
 	}
 	case HAVEBEENDELIVERED: {
-		strncpy(((OrderForm*)node->m_Data)->m_OrderStatus, "å·²é€è¾¾", sizeof("å·²é€è¾¾"));
-		printf("ä¿®æ”¹æˆåŠŸã€‚\n");
+		strncpy(((OrderForm*)node->m_Data)->m_OrderStatus, "ÒÑËÍ´ï", sizeof("ÒÑËÍ´ï"));
+		printf("ĞŞ¸Ä³É¹¦¡£\n");
 		break;
 	}
 	default: {
-		printf("è¾“å…¥é”™è¯¯ã€‚\n");
+		printf("ÊäÈë´íÎó¡£\n");
 		getchar();
 		break;
 	}
 	}
 }
 
-
-
-
-void SaveOrderForm(void* pValue, void* operateValue)
+//É¾³ı¶©µ¥
+void DelDistribute()
 {
-	FILE* pfw = (FILE*)operateValue;
-	fwrite(pValue, sizeof(OrderForm), 1, pfw);
-}
-
-void SaveCommodity(void* pValue, void* operateValue)
-{
-	FILE* pfw = (FILE*)operateValue;
-	fwrite(pValue, sizeof(Commodity), 1, pfw);
+	printf("ÇëÊäÈëÒªÉ¾³ıµÄ¶©µ¥±àºÅ£º\n");
+	size_t orderNum;
+	int erromes = scanf("%zu", &orderNum);
+	CleanBuffer();
+	if (NumInputFailure(erromes)) {
+		return NULL;
+	}
+	Node* node = Find(g_OrderForm, FindOrderForm, &orderNum);
+	if (!node) {
+		printf("Î´ÓĞ´Ë¶©µ¥¡£\n");
+		return;
+	}
+	OrderForm* order = (OrderForm*)(node->m_Data);
+	if (order->m_UndeliverNum != 0) {
+		printf("¸Ã¶©µ¥Î´ÅäËÍÍê¡£\n");
+		return;
+	}
+	Erase(g_OrderForm, node);
+	printf("¶©µ¥ÒÑ¾­É¾³ı\n");
 }
 
 
 
 void MerchantUI()
 {
-	if (!MerchantLogin()) {	//ç™»å½•å¤±è´¥åˆ™é€€å‡º
+	if (!MerchantLoginUI()) {	//µÇÂ¼Ê§°ÜÔòÍË³ö
 		return;
 	}
-	enum MerchantMenu {
+	enum MerchantMenu{
 		EXIT,
 		ADDPRODUCTS,
 		VIEWPRODUCTS,
 		MODIFYPRODUCTS,
-		MANAGEDISTRIBUTE
+		MANAGEDISTRIBUTE,
+		DELPRODUCTS,
+		DELDISTRIBUTE
 	};
 	enum MasterMenu select;
 	do {
 		system("cls");
-		MerchantCatalogue();	//æ‰“å°ç›®å½•
-		printf("è¯·é€‰æ‹©:");
+		MerchantCatalogue();	//´òÓ¡Ä¿Â¼
+		printf("ÇëÑ¡Ôñ:");
 		scanf("%d", &select);
 		CleanBuffer();
 		system("cls");
 		switch (select) {
-		case EXIT: {	// é€€å‡º
-			FILE* opfw = fopen("OrderForm.dat", "wb");	//åˆ›å»ºæ–‡ä»¶
-			if (opfw == NULL) {
-				printf("%s", strerror(errno));
-				return;
-			}
-			TraversalOperation(g_OrderForm, SaveOrderForm, opfw);
-			FILE* cpfw = fopen("Commodity.dat", "wb");	//åˆ›å»ºæ–‡ä»¶
-			if (cpfw == NULL) {
-				printf("%s", strerror(errno));
-				return;
-			}
-			TraversalOperation(g_Commodity, SaveCommodity, cpfw);
-			fclose(opfw);
-			fclose(cpfw);
+		case EXIT: {	// ÍË³ö
+			SaveCommodity();
+			SaveOrderForm();
 			break;
 		}
-		case ADDPRODUCTS: {	// æ·»åŠ å•†å“
+		case ADDPRODUCTS: {	// Ìí¼ÓÉÌÆ·
+			printf("ÒÑ´æÔÚÉÌÆ·£º\n");
+			TraversalOperation(g_Commodity, PrintCommofity, NULL);
 			AddProducts();
+			SaveCommodity();
 			getchar();
 			break;
 		}
-		case VIEWPRODUCTS: {	//æŸ¥çœ‹å•†å“
-			TraversalOperation(g_Commodity, PrintProducts, NULL);
+		case VIEWPRODUCTS: {	//²é¿´ÉÌÆ·
+			TraversalOperation(g_Commodity, PrintCommofity, NULL);
 			getchar();
 			break;
 		}
 		case MODIFYPRODUCTS: {
+			printf("ÒÑ´æÔÚÉÌÆ·£º\n");
+			TraversalOperation(g_Commodity, PrintCommofity, NULL);
 			ModifyProducts();
+			SaveCommodity();
 			getchar();
 			break;
 		}
 		case MANAGEDISTRIBUTE: {
 			ManageDistribute();
+			SaveOrderForm();
+			getchar();
+			break;
+		}
+		case DELPRODUCTS: {
+			printf("ÒÑ´æÔÚÉÌÆ·£º\n");
+			TraversalOperation(g_Commodity, PrintCommofity, NULL);
+			DelProducts();
+			SaveCommodity();
+			getchar();
+			break;
+		}
+		case DELDISTRIBUTE: {
+			TraversalOperation(g_OrderForm, PrintOrderForm, NULL);
+			DelDistribute();
+			SaveOrderForm();
 			getchar();
 			break;
 		}
 		default: {
-			printf("è¾“å…¥é”™è¯¯ã€‚\n");
+			printf("ÊäÈë´íÎó¡£\n");
 			getchar();
 			break;
 		}

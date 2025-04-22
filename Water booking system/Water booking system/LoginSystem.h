@@ -6,18 +6,18 @@
 #include <io.h>
 #include "GlobalVariable.h"
 #include "List.h"
+#include "Util.h"
 
 
 Node* UserLoginUI();
 
-void PrintUser(void* pValue);
 Userinfo* NewUser(Userinfo e);
 void UserRegister();
 bool FindUser(void* pValue, void* cmpValue);
-void SaveUserinfo(void* pValue, void* operateValue);
 
-bool MerchantLogin();	//商家登录
+bool MerchantLogin(char correctPassword[20]);	//商家登录
 Node* UserLogin();	//用户登录
+void ChangePassword(char** correctPassword);
 
 #endif // !__LOGINSYSTEM__H__
 

@@ -7,9 +7,9 @@
 //Public
 
 /*
-*  @description : åˆ¤æ–­é“¾è¡¨æ˜¯å¦ä¸ºç©º
-*  @param		: listä¸ºé“¾è¡¨
-*  @return		: ä¸ºç©ºæ—¶è¿”å›true
+*  @description : ÅĞ¶ÏÁ´±íÊÇ·ñÎª¿Õ
+*  @param		: listÎªÁ´±í
+*  @return		: Îª¿ÕÊ±·µ»Øtrue
 */
 bool IsEmpty(const List* const list)
 {
@@ -17,9 +17,9 @@ bool IsEmpty(const List* const list)
 }
 
 /*
-*  @description : åˆå§‹åŒ–é“¾è¡¨
+*  @description : ³õÊ¼»¯Á´±í
 *  @param		: None
-*  @return		: æŒ‡å‘é“¾è¡¨çš„æŒ‡é’ˆ
+*  @return		: Ö¸ÏòÁ´±íµÄÖ¸Õë
 */
 List* InitList(void deallocate(void*))
 {
@@ -31,18 +31,18 @@ List* InitList(void deallocate(void*))
 	if (!head) {
 		return NULL;
 	}
-	head->m_Data = NULL;	//åˆå§‹åŒ–å¤´èŠ‚ç‚¹
+	head->m_Data = NULL;	//³õÊ¼»¯Í·½Úµã
 	head->m_Next = head;
 	head->m_Pre = head;
-	list->m_Head = head;	//åˆå§‹åŒ–é“¾è¡¨
+	list->m_Head = head;	//³õÊ¼»¯Á´±í
 	list->m_Size = 0;
 	list->deallocate = deallocate;
 	return list;
 }
 
 /*
-*  @description : å¤´ç«¯æ’å…¥å…ƒç´ ï¼Œä¼ å…¥å·²ç»åˆ†é…å¥½å†…å­˜çš„æ•°æ®
-*  @param		: listé“¾è¡¨, pValueæ•°æ®çš„åœ°å€
+*  @description : Í·¶Ë²åÈëÔªËØ£¬´«ÈëÒÑ¾­·ÖÅäºÃÄÚ´æµÄÊı¾İ
+*  @param		: listÁ´±í, pValueÊı¾İµÄµØÖ·
 *  @return		: None
 */
 void PushFront(List* list, const void* const pValue)
@@ -51,17 +51,17 @@ void PushFront(List* list, const void* const pValue)
 	Node* head = list->m_Head;
 	Node* node = MALLOC(Node);
 	ASSERTNODE(node);
-	node->m_Data = pValue;	//æ¥ç®¡æ•°æ®
-	node->m_Pre = head;	//æ’å…¥èŠ‚ç‚¹
+	node->m_Data = pValue;	//½Ó¹ÜÊı¾İ
+	node->m_Pre = head;	//²åÈë½Úµã
 	node->m_Next = head->m_Next;
 	head->m_Next->m_Pre = node;
 	head->m_Next = node;
-	list->m_Size++;	//å®¹é‡å¢åŠ 
+	list->m_Size++;	//ÈİÁ¿Ôö¼Ó
 }
 
 /*
-*  @description : å°¾éƒ¨æ’å…¥å…ƒç´ ï¼Œä¼ å…¥å·²ç»åˆ†é…å¥½å†…å­˜çš„æ•°æ®
-*  @param		: listé“¾è¡¨, pValueæ•°æ®çš„åœ°å€
+*  @description : Î²²¿²åÈëÔªËØ£¬´«ÈëÒÑ¾­·ÖÅäºÃÄÚ´æµÄÊı¾İ
+*  @param		: listÁ´±í, pValueÊı¾İµÄµØÖ·
 *  @return		: None
 */
 void PushBack(List* list, const void* const pValue)
@@ -70,72 +70,72 @@ void PushBack(List* list, const void* const pValue)
 	Node* head = list->m_Head;
 	Node* node = MALLOC(Node);
 	ASSERTNODE(node);
-	node->m_Data = pValue;	//æ¥ç®¡æ•°æ®
-	node->m_Next = head;	//æ’å…¥èŠ‚ç‚¹
+	node->m_Data = pValue;	//½Ó¹ÜÊı¾İ
+	node->m_Next = head;	//²åÈë½Úµã
 	node->m_Pre = head->m_Pre;
 	head->m_Pre->m_Next = node;
 	head->m_Pre = node;
-	list->m_Size++;	//å¤§å°å¢åŠ 
+	list->m_Size++;	//´óĞ¡Ôö¼Ó
 }
 
 /*
-*  @description : å¤´éƒ¨åˆ é™¤å…ƒç´ å…ƒç´ , è¦ä¼ å…¥å‡½æ•°æŒ‡é’ˆæ¥åˆ¤æ–­å¦‚ä½•åˆ é™¤ï¼Œ ä¹Ÿå¯ä½¿ç”¨é»˜è®¤çš„åˆ é™¤å‡½æ•°
-*  @param		: listé“¾è¡¨, å¤„ç†å†…éƒ¨æ•°æ®çš„å‡½æ•°
+*  @description : Í·²¿É¾³ıÔªËØÔªËØ, Òª´«Èëº¯ÊıÖ¸ÕëÀ´ÅĞ¶ÏÈçºÎÉ¾³ı£¬ Ò²¿ÉÊ¹ÓÃÄ¬ÈÏµÄÉ¾³ıº¯Êı
+*  @param		: listÁ´±í, ´¦ÀíÄÚ²¿Êı¾İµÄº¯Êı
 *  @return		: None
 */
 void PopFront(List* list)
 {
 	ASSERTLIST(list);
-	if (IsEmpty(list)) {	//ä¸ºç©ºåˆ™ä¸è¿›è¡Œæ“ä½œ
+	if (IsEmpty(list)) {	//Îª¿ÕÔò²»½øĞĞ²Ù×÷
 		return;
 	}
 	Node* head = list->m_Head;
 	Node* node = head->m_Next;
-	node->m_Next->m_Pre = head;	//æŠ½ç¦»èŠ‚ç‚¹
+	node->m_Next->m_Pre = head;	//³éÀë½Úµã
 	head->m_Next = node->m_Next;
-	list->deallocate(node->m_Data);	//ç”± deallocate å‡½æ•°å¤„ç†èŠ‚ç‚¹å†…éƒ¨æ•°æ®
-	free(node);	//é‡Šæ”¾èŠ‚ç‚¹
+	list->deallocate(node->m_Data);	//ÓÉ deallocate º¯Êı´¦Àí½ÚµãÄÚ²¿Êı¾İ
+	free(node);	//ÊÍ·Å½Úµã
 	node = NULL;
-	list->m_Size--;	//å¤§å°å‡å°
+	list->m_Size--;	//´óĞ¡¼õĞ¡
 }
 
 /*
-*  @description : å°¾åˆ å…ƒç´ å…ƒç´ , è¦ä¼ å…¥å‡½æ•°æŒ‡é’ˆæ¥åˆ¤æ–­å¦‚ä½•åˆ é™¤ï¼Œ ä¹Ÿå¯ä½¿ç”¨é»˜è®¤çš„åˆ é™¤å‡½æ•°
-*  @param		: listé“¾è¡¨, deallocateå¤„ç†å†…éƒ¨æ•°æ®çš„å‡½æ•°
+*  @description : Î²É¾ÔªËØÔªËØ, Òª´«Èëº¯ÊıÖ¸ÕëÀ´ÅĞ¶ÏÈçºÎÉ¾³ı£¬ Ò²¿ÉÊ¹ÓÃÄ¬ÈÏµÄÉ¾³ıº¯Êı
+*  @param		: listÁ´±í, deallocate´¦ÀíÄÚ²¿Êı¾İµÄº¯Êı
 *  @return		: None
 */
 void PopBack(List* list)
 {
 	ASSERTLIST(list);
-	if (IsEmpty(list)) {	//ä¸ºç©ºåˆ™ä¸è¿›è¡Œæ“ä½œ
+	if (IsEmpty(list)) {	//Îª¿ÕÔò²»½øĞĞ²Ù×÷
 		return;
 	}
 	Node* head = list->m_Head;
 	Node* node = head->m_Pre;
-	node->m_Pre->m_Next = head;	//æŠ½ç¦»èŠ‚ç‚¹
+	node->m_Pre->m_Next = head;	//³éÀë½Úµã
 	head->m_Pre = node->m_Pre;
-	list->deallocate(node->m_Data);	//ç”± deallocate å‡½æ•°å¤„ç†èŠ‚ç‚¹å†…éƒ¨æ•°æ®
-	free(node);	//é‡Šæ”¾èŠ‚ç‚¹
+	list->deallocate(node->m_Data);	//ÓÉ deallocate º¯Êı´¦Àí½ÚµãÄÚ²¿Êı¾İ
+	free(node);	//ÊÍ·Å½Úµã
 	node = NULL;
-	list->m_Size--;	//å¤§å°å‡å°
+	list->m_Size--;	//´óĞ¡¼õĞ¡
 }
 
 /*
-*  @description : é»˜è®¤æ•°æ®é‡Šæ”¾å‡½æ•°ï¼Œé‡Šæ”¾å †åŒºå†…å­˜
-*  @param		: pValue è¦é‡Šæ”¾æ•°æ®çš„åœ°å€
+*  @description : Ä¬ÈÏÊı¾İÊÍ·Åº¯Êı£¬ÊÍ·Å¶ÑÇøÄÚ´æ
+*  @param		: pValue ÒªÊÍ·ÅÊı¾İµÄµØÖ·
 *  @return		: None
 */
 void DefaultDeallocate(void* pValue)
 {
-	if (pValue) {	//è‹¥æ•°æ®ä¸ä¸ºç©º
-		free(pValue);	//é‡Šæ”¾æ•°æ®
+	if (pValue) {	//ÈôÊı¾İ²»Îª¿Õ
+		free(pValue);	//ÊÍ·ÅÊı¾İ
 	}
 }
 
 /*
-*  @description : åœ¨æŒ‡å®šèŠ‚ç‚¹å‰æ’å…¥æ•°æ®ï¼Œæ³¨æ„æ˜¯åœ¨å…¶ä¹‹å‰
-*  @param		: listæ“ä½œçš„é“¾è¡¨ï¼ŒposæŒ‡å®šçš„èŠ‚ç‚¹ï¼Œåœ¨å…¶å‰æ’å…¥æ•°æ®ï¼ŒpValueè¦æ’å…¥çš„æ•°æ®
-*  @return		: æ–°åŠ çš„èŠ‚ç‚¹
+*  @description : ÔÚÖ¸¶¨½ÚµãÇ°²åÈëÊı¾İ£¬×¢ÒâÊÇÔÚÆäÖ®Ç°
+*  @param		: list²Ù×÷µÄÁ´±í£¬posÖ¸¶¨µÄ½Úµã£¬ÔÚÆäÇ°²åÈëÊı¾İ£¬pValueÒª²åÈëµÄÊı¾İ
+*  @return		: ĞÂ¼ÓµÄ½Úµã
 */
 Node* Insert(List* list, Node* pos, const void* const pValue)
 {
@@ -156,9 +156,9 @@ Node* Insert(List* list, Node* pos, const void* const pValue)
 }
 
 /*
-*  @description : åˆ é™¤æŒ‡å®šèŠ‚ç‚¹ï¼Œå¹¶è¿”å›å…¶å‰é¢çš„èŠ‚ç‚¹,åˆ«æŠŠå¤´èŠ‚ç‚¹ä¼ è¿›å»äº†ï¼Œä¼ è¿›å»ä¸ä¼šåšä»»ä½•äº‹
-*  @param		: listæ“ä½œçš„é“¾è¡¨ï¼ŒposæŒ‡å®šçš„èŠ‚ç‚¹ï¼Œdeallocateå¤„ç†å†…éƒ¨æ•°æ®çš„å‡½æ•°
-*  @return		: åˆ é™¤èŠ‚ç‚¹ä¹‹å‰çš„èŠ‚ç‚¹
+*  @description : É¾³ıÖ¸¶¨½Úµã£¬²¢·µ»ØÆäÇ°ÃæµÄ½Úµã,±ğ°ÑÍ·½Úµã´«½øÈ¥ÁË£¬´«½øÈ¥²»»á×öÈÎºÎÊÂ
+*  @param		: list²Ù×÷µÄÁ´±í£¬posÖ¸¶¨µÄ½Úµã£¬deallocate´¦ÀíÄÚ²¿Êı¾İµÄº¯Êı
+*  @return		: É¾³ı½ÚµãÖ®Ç°µÄ½Úµã
 */
 Node* Erase(List* list, Node* pos)
 {
@@ -176,9 +176,9 @@ Node* Erase(List* list, Node* pos)
 }
 
 /*
-*  @description : æŸ¥æ‰¾æŸä¸ªèŠ‚ç‚¹ï¼Œéœ€è¦æä¾›æŸ¥æ‰¾æ•°æ®çš„å‡½æ•°ï¼Œæ¯”è¾ƒæˆåŠŸæ—¶è¦è¿”å› true
-*  @param		: list æ“ä½œçš„é“¾è¡¨ï¼ŒfindFunc æŸ¥æ‰¾å‡½æ•°ï¼Œç”¨äºå®šä¹‰æ€æ ·æŸ¥æ‰¾ï¼Œ cmpValueç”¨äºæ¯”è¾ƒçš„å€¼
-*  @return		: æŸ¥æ‰¾åˆ°çš„èŠ‚ç‚¹ï¼ŒæŸ¥æ‰¾å¤±è´¥æ˜¯è¿”å› NULL
+*  @description : ²éÕÒÄ³¸ö½Úµã£¬ĞèÒªÌá¹©²éÕÒÊı¾İµÄº¯Êı£¬±È½Ï³É¹¦Ê±Òª·µ»Ø true
+*  @param		: list ²Ù×÷µÄÁ´±í£¬findFunc ²éÕÒº¯Êı£¬ÓÃÓÚ¶¨ÒåÔõÑù²éÕÒ£¬ cmpValueÓÃÓÚ±È½ÏµÄÖµ
+*  @return		: ²éÕÒµ½µÄ½Úµã£¬²éÕÒÊ§°ÜÊÇ·µ»Ø NULL
 */
 Node* Find(List* list, bool findFunc(void*, void*), void* cmpValue)
 {
@@ -194,8 +194,8 @@ Node* Find(List* list, bool findFunc(void*, void*), void* cmpValue)
 }
 
 /*
-*  @description : éå†æ•´ä¸ªé“¾è¡¨ï¼Œå¹¶å¯¹èŠ‚ç‚¹å†…çš„æ•°æ®æ‰§è¡Œç‰¹å®šæ“ä½œï¼Œæ“ä½œç”±ä¼ å…¥çš„å‡½æ•°å†³å®š
-*  @param		: list éå†çš„é“¾è¡¨ï¼Œoperation æ“ä½œå‡½æ•°ï¼Œç”¨äºå®šä¹‰æ€æ ·å¤„ç†æ•°æ®
+*  @description : ±éÀúÕû¸öÁ´±í£¬²¢¶Ô½ÚµãÄÚµÄÊı¾İÖ´ĞĞÌØ¶¨²Ù×÷£¬²Ù×÷ÓÉ´«ÈëµÄº¯Êı¾ö¶¨
+*  @param		: list ±éÀúµÄÁ´±í£¬operation ²Ù×÷º¯Êı£¬ÓÃÓÚ¶¨ÒåÔõÑù´¦ÀíÊı¾İ
 *  @return		: None
 */
 void TraversalOperation(List* list, void operation(void*, void*), void* operateValue)
@@ -207,8 +207,8 @@ void TraversalOperation(List* list, void operation(void*, void*), void* operateV
 }
 
 /*
-*  @description : æ¸…ç©ºé“¾è¡¨
-*  @param		: list æ¸…ç©ºçš„é“¾è¡¨
+*  @description : Çå¿ÕÁ´±í
+*  @param		: list Çå¿ÕµÄÁ´±í
 *  @return		: None
 */
 void Clear(List* list)
@@ -220,13 +220,13 @@ void Clear(List* list)
 }
 
 /*
-*  @description : é”€æ¯é“¾è¡¨
-*  @param		: list é”€æ¯çš„é“¾è¡¨
+*  @description : Ïú»ÙÁ´±í
+*  @param		: list Ïú»ÙµÄÁ´±í
 *  @return		: NULL
 */
 List* Destroy(List* list)
 {
-	if (!list || list->m_Head) {
+	if (!list || !list->m_Head) {
 		return NULL;
 	}
 	Clear(list);

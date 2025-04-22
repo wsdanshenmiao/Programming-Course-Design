@@ -8,280 +8,446 @@
 
 
 
-// ç”¨æˆ·å……å€¼
+//µç»°²éÕÒº¯Êı£¬·ÀÖ¹ÖØ¸´µç»°
+bool FindPhoneNum(void* pValue, void* cmpValue)
+{
+    Userinfo* userinfo = (Userinfo*)pValue;
+    return strncmp(userinfo->m_UserPhoneNum, (char*)cmpValue, sizeof((char*)cmpValue)) == 0;
+}
+
+// ÓÃ»§³äÖµ
 bool RechargeUserAccount(Userinfo* user, size_t amount) {
-	if (user == NULL || amount == 0) {
-		return false; // å¦‚æœç”¨æˆ·ä¸å­˜åœ¨æˆ–å……å€¼é‡‘é¢ä¸º0ï¼Œåˆ™è¿”å›å¤±è´¥
-	}
-	user->m_Balance += amount; // æ›´æ–°ç”¨æˆ·ä½™é¢
-	return true;
+    if (user == NULL || amount == 0) {
+        return false; // Èç¹ûÓÃ»§²»´æÔÚ»ò³äÖµ½ğ¶îÎª0£¬Ôò·µ»ØÊ§°Ü
+    }
+    user->m_Balance += amount; // ¸üĞÂÓÃ»§Óà¶î
+    return true;
 }
 
-// ç”¨æˆ·å……å€¼
-void Recharge(Node* userMes)
+// ÓÃ»§³äÖµ
+void Recharge(Node* userMes) 
 {
-	// ç”¨æˆ·ä¿¡æ¯åœ¨ç™»å½•æ—¶å°±æ‰¾åˆ°äº†ï¼Œä¸ç”¨å†è¾“äº†    
-	Userinfo* userinfo = (Userinfo*)(userMes->m_Data);
-	size_t amount;
-	printf("å½“å‰ä½™é¢ï¼š%zu\n", userinfo->m_Balance);
-	printf("è¯·è¾“å…¥å……å€¼é‡‘é¢ï¼š\n");
-	int error = scanf("%zu", &amount); // è·å–ç”¨æˆ·è¾“å…¥çš„å……å€¼é‡‘é¢
-	CleanBuffer();
-	if (NumInputFailure(error)) { // æ£€æŸ¥è¾“å…¥æ˜¯å¦å¤±è´¥
-		printf("è¾“å…¥é”™è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ã€‚\n");
-		return;
-	}
+    // ÓÃ»§ĞÅÏ¢ÔÚµÇÂ¼Ê±¾ÍÕÒµ½ÁË£¬²»ÓÃÔÙÊäÁË    
+    Userinfo* userinfo = (Userinfo*)(userMes->m_Data);
+    int amount;
+    printf("µ±Ç°Óà¶î£º%zu\n", userinfo->m_Balance);
+    printf("ÇëÊäÈë³äÖµ½ğ¶î£º\n");
+    int error = scanf("%d", &amount); // »ñÈ¡ÓÃ»§ÊäÈëµÄ³äÖµ½ğ¶î
+    CleanBuffer();
+    if (amount < 0) {
+        printf("ÊäÈë´íÎó£¬ÇëÖØĞÂÊäÈë¡£\n");
+        Sleep(1000);
+        return;
+    }
+    if (NumInputFailure(error)) { // ¼ì²éÊäÈëÊÇ·ñÊ§°Ü
+        printf("ÊäÈë´íÎó£¬ÇëÖØĞÂÊäÈë¡£\n");
+        Sleep(1000);
+        return;
+    }
 
-
-	userinfo->m_Balance += amount;   // è¿™é‡Œæ²¡å¿…è¦å†™æˆå‡½æ•°
-	printf("å……å€¼æˆåŠŸï¼Œå½“å‰ä½™é¢ï¼š%zu\n", userinfo->m_Balance); // å……å€¼æˆåŠŸï¼Œæ‰“å°å½“å‰ä½™é¢
-	Sleep(1000);
+    userinfo->m_Balance += amount;   // ÕâÀïÃ»±ØÒªĞ´³Éº¯Êı
+    printf("³äÖµ³É¹¦£¬µ±Ç°Óà¶î£º%zu\n", userinfo->m_Balance); // ³äÖµ³É¹¦£¬´òÓ¡µ±Ç°Óà¶î
+    Sleep(1000);
 }
 
 
 
 
-void PrintCommofity(void* pValue, void* operateValue)
-{
-	Commodity* commofity = (Commodity*)(pValue);
-	printf("%s\t%lld\n",
-		commofity->m_CommodityName,
-		commofity->m_CommodityPrices);
-}
+
 
 bool FindProduct(void* pValue, void* cmpValue)
 {
-	Commodity* commodity = (Commodity*)pValue;
-	return strncmp(commodity->m_CommodityName, (char*)cmpValue, sizeof((char*)cmpValue)) == 0;
+    Commodity* commodity = (Commodity*)pValue;
+    return strncmp(commodity->m_CommodityName, (char*)cmpValue, sizeof((char*)cmpValue)) == 0;
 }
 
-// ç”¨æˆ·é€‰æ‹©å•†å“
+// ÓÃ»§Ñ¡ÔñÉÌÆ·
 Node* SelectProduct() {
-	printf("è¯·è¾“å…¥å•†å“åç§°ï¼š\n"); // æç¤ºç”¨æˆ·è¾“å…¥å•†å“åç§°
-	char name[20]; // å­˜å‚¨è¾“å…¥çš„å•†å“åç§°
-	int error = scanf("%s", name); // è¯»å–ç”¨æˆ·è¾“å…¥
-	CleanBuffer(); // æ¸…é™¤è¾“å…¥ç¼“å†²åŒº
-	if (StrInputFailure(error, name, sizeof(name))) { // æ£€æŸ¥è¾“å…¥æ˜¯å¦å¤±è´¥
-		printf("è¾“å…¥é”™è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ã€‚\n");
-		return NULL; // è¾“å…¥å¤±è´¥æ—¶è¿”å› NULL
-	}
-	Node* node = Find(g_Commodity, FindProduct, name); // åœ¨å•†å“é“¾è¡¨ä¸­æŸ¥æ‰¾å•†å“
-	if (!node) {
-		printf("æœªæ‰¾åˆ°è¯¥å•†å“ã€‚\n"); // è‹¥æœªæ‰¾åˆ°å•†å“ï¼Œè¾“å‡ºæç¤º
-	}
-	return node; // è¿”å›æ‰¾åˆ°çš„å•†å“èŠ‚ç‚¹
+    printf("ÇëÊäÈëÉÌÆ·Ãû³Æ£º\n"); // ÌáÊ¾ÓÃ»§ÊäÈëÉÌÆ·Ãû³Æ
+    char name[20]; // ´æ´¢ÊäÈëµÄÉÌÆ·Ãû³Æ
+    int error = scanf("%s", name); // ¶ÁÈ¡ÓÃ»§ÊäÈë
+    CleanBuffer(); // Çå³ıÊäÈë»º³åÇø
+    if (StrInputFailure(error, name, sizeof(name))) { // ¼ì²éÊäÈëÊÇ·ñÊ§°Ü
+        printf("ÊäÈë´íÎó£¬ÇëÖØĞÂÊäÈë¡£\n");
+        Sleep(1000);
+        return NULL; // ÊäÈëÊ§°ÜÊ±·µ»Ø NULL
+    }
+    Node* node = Find(g_Commodity, FindProduct, name); // ÔÚÉÌÆ·Á´±íÖĞ²éÕÒÉÌÆ·
+    if (!node) {
+        printf("Î´ÕÒµ½¸ÃÉÌÆ·¡£\n"); // ÈôÎ´ÕÒµ½ÉÌÆ·£¬Êä³öÌáÊ¾
+        Sleep(1000);
+    }
+    return node; // ·µ»ØÕÒµ½µÄÉÌÆ·½Úµã
 }
 
-// ç”¨æˆ·è¾“å…¥è´­ä¹°æ•°é‡
+// ÓÃ»§ÊäÈë¹ºÂòÊıÁ¿
 size_t GetUserQuantity() {
-	printf("è¯·è¾“å…¥è´­ä¹°æ•°é‡ï¼š\n"); // æç¤ºç”¨æˆ·è¾“å…¥è´­ä¹°æ•°é‡
-	size_t quantity; // å­˜å‚¨è´­ä¹°æ•°é‡
-	int error = scanf("%zu", &quantity); // è¯»å–ç”¨æˆ·è¾“å…¥çš„æ•°é‡
-	CleanBuffer(); // æ¸…é™¤è¾“å…¥ç¼“å†²åŒº
-	if (NumInputFailure(error) || quantity <= 0) { // æ£€æŸ¥è¾“å…¥æ˜¯å¦å¤±è´¥
-		printf("è¯·è¾“å…¥å¤§äº0çš„æ•°å­—ã€‚\n");
-		return 0; // è¾“å…¥å¤±è´¥è¿”å›0
-	}
-	return quantity; // è¿”å›è¾“å…¥çš„æ•°é‡
+    printf("ÇëÊäÈë¹ºÂòÊıÁ¿£º\n"); // ÌáÊ¾ÓÃ»§ÊäÈë¹ºÂòÊıÁ¿
+    size_t quantity; // ´æ´¢¹ºÂòÊıÁ¿
+    int error = scanf("%zu", &quantity); // ¶ÁÈ¡ÓÃ»§ÊäÈëµÄÊıÁ¿
+    CleanBuffer(); // Çå³ıÊäÈë»º³åÇø
+    if (NumInputFailure(error) || quantity <= 0) { // ¼ì²éÊäÈëÊÇ·ñÊ§°Ü
+        printf("ÇëÊäÈë´óÓÚ0µÄÊı×Ö¡£\n");
+        return 0; // ÊäÈëÊ§°Ü·µ»Ø0
+    }
+    return quantity; // ·µ»ØÊäÈëµÄÊıÁ¿
 }
 
-// åˆ›å»ºè®¢å•
-OrderForm* CreateOrder(Commodity* commodity, Userinfo* userinfo, size_t quantity)
+// ´´½¨¶©µ¥
+OrderForm* CreateOrder(Commodity* commodity, Userinfo* userinfo, size_t quantity, char orderType[10])
 {
-	OrderForm* order = MALLOC(OrderForm); // åˆ†é…å†…å­˜ç»™è®¢å•
-	ASSERTPOINTER(order);
-	order->m_OrderNumber = rand();  // éšæœºç”Ÿæˆè®¢å•å·
-	order->m_CommodityNum = quantity; // è®¾ç½®è´­ä¹°æ•°é‡
-	order->m_CommodityPrices = commodity->m_CommodityPrices * quantity; // è®¡ç®—æ€»ä»·æ ¼
-	strncpy(order->m_UserName, userinfo->m_Username, sizeof(order->m_UserName)); // è®¾ç½®ç”¨æˆ·å
-	strncpy(order->m_UserPhoneNum, userinfo->m_UserPhoneNum, sizeof(order->m_UserPhoneNum)); // è®¾ç½®ç”¨æˆ·ç”µè¯å·ç 
-	strncpy(order->m_CommodityName, commodity->m_CommodityName, sizeof(order->m_CommodityName)); // è®¾ç½®å•†å“åç§°
-	strncpy(order->m_UserAddress, userinfo->m_Address, sizeof(order->m_UserAddress)); // è®¾ç½®ç”¨æˆ·åœ°å€
-	strncpy(order->m_OrderStatus, "å¾…å‘è´§", sizeof("å¾…å‘è´§")); // è®¾ç½®è®¢å•çŠ¶æ€ä¸ºâ€œå¾…å‘è´§â€
-	return order; // è¿”å›åˆ›å»ºçš„è®¢å•
+    OrderForm* order = MALLOC(OrderForm); // ·ÖÅäÄÚ´æ¸ø¶©µ¥
+    ASSERTPOINTER(order);
+    srand(time(0));
+    // ¼´¶¨¼´È¡ÅäËÍÈ«²¿£¬ÅúÁ¿¶¨È¡È«²¿´æ¿â´æÀï£¬ÓÃ»§×ÔĞĞÑ¡ÔñÊÇ·ñÅäËÍ
+    size_t deliverNum = strncmp(orderType, "¼´¶¨¼´È¡", sizeof("¼´¶¨¼´È¡")) ? 0 : quantity;
+    order->m_OrderNumber = rand();  // Ëæ»úÉú³É¶©µ¥ºÅ
+    order->m_CommodityNum = quantity; // ÉèÖÃ¹ºÂòÊıÁ¿
+    order->m_DeliverNum = deliverNum;    // ÒÑÅäËÍ
+    order->m_UndeliverNum = quantity - deliverNum;  //¿â´æ
+    order->m_CommodityPrices = commodity->m_CommodityPrices * quantity; // ¼ÆËã×Ü¼Û¸ñ
+    strncpy(order->m_UserName, userinfo->m_Username, sizeof(order->m_UserName)); // ÉèÖÃÓÃ»§Ãû
+    strncpy(order->m_UserPhoneNum, userinfo->m_UserPhoneNum, sizeof(order->m_UserPhoneNum)); // ÉèÖÃÓÃ»§µç»°ºÅÂë
+    strncpy(order->m_CommodityName, commodity->m_CommodityName, sizeof(order->m_CommodityName)); // ÉèÖÃÉÌÆ·Ãû³Æ
+    strncpy(order->m_UserAddress, userinfo->m_Address, sizeof(order->m_UserAddress)); // ÉèÖÃÓÃ»§µØÖ·
+    strncpy(order->m_OrderStatus, "´ı·¢»õ", sizeof("´ı·¢»õ")); // ÉèÖÃ¶©µ¥×´Ì¬Îª¡°´ı·¢»õ¡±
+    strncpy(order->m_OrderType, orderType, sizeof(order->m_OrderType));
+    return order; // ·µ»Ø´´½¨µÄ¶©µ¥
 }
 
-// ç”¨æˆ·è´­ä¹°å•†å“
+char* ChoseOrderType()
+{
+    printf("0.È¡Ïû¶©¹º\t1.¼´¶¨¼´È¡\t2.ÅúÁ¿¶¨È¡\n");
+    printf("ÇëÑ¡Ôñ¶©µ¥ÖÖÀà£º\n");
+    int select;
+    scanf("%d", &select);
+    CleanBuffer();
+    switch (select) {
+    case 0: {
+        return NULL;
+        break;
+    }
+    case 1: { 
+        return "¼´¶¨¼´È¡";
+        break;
+    }
+    case 2: { 
+        return "ÅúÁ¿¶¨È¡";
+        break;
+    }
+    default: {
+        printf("ÊäÈë´íÎó¡£\n");
+        getchar();
+        break;
+    }
+    }
+    return NULL;
+}
+
+// ÓÃ»§¹ºÂòÉÌÆ·
 void PurchaseProduct(Node* userMes)
 {
-	TraversalOperation(g_Commodity, PrintCommofity, NULL);
-	Node* selectedProduct = SelectProduct(); // ç”¨æˆ·é€‰æ‹©å•†å“
-	if (!selectedProduct) {
-		return; // å¦‚æœå•†å“é€‰æ‹©å¤±è´¥ï¼Œè¿”å›
-	}
-	size_t quantity = GetUserQuantity(); // è·å–ç”¨æˆ·è¾“å…¥çš„è´­ä¹°æ•°é‡
-	if (quantity == 0) {
-		return; // å¦‚æœè¾“å…¥çš„æ•°é‡ä¸º0ï¼Œè¿”å›
-	}
-	Commodity* commodity = (Commodity*)(selectedProduct->m_Data);
-	Userinfo* userinfo = (Userinfo*)(userMes->m_Data);  //ç”¨æˆ·ä¿¡æ¯åœ¨ç™»å½•æ—¶å°±å¯ä»¥æ‰¾åˆ°
-	OrderForm* order = CreateOrder(commodity, userinfo, quantity); // åˆ›å»ºè®¢å•
-	if (!order) {
-		printf("è®¢å•åˆ›å»ºå¤±è´¥ã€‚\n"); // å¦‚æœè®¢å•åˆ›å»ºå¤±è´¥ï¼Œè¾“å‡ºæç¤º
-		return;
-	}
-	PushFront(g_OrderForm, order); // å°†è®¢å•åŠ å…¥è®¢å•é“¾è¡¨          è¿™å°±æ²¡å¿…è¦å†™æˆå‡½æ•°äº†
-	printf("è®¢å•æäº¤æˆåŠŸï¼è®¢å•å·ï¼š%zu\n", order->m_OrderNumber); // è¾“å‡ºè®¢å•æäº¤æˆåŠŸä¿¡æ¯åŠè®¢å•å·
+    TraversalOperation(g_Commodity, PrintCommofity, NULL);
+    Node* selectedProduct = SelectProduct(); // ÓÃ»§Ñ¡ÔñÉÌÆ·
+    if (!selectedProduct) {
+        return; // Èç¹ûÉÌÆ·Ñ¡ÔñÊ§°Ü£¬·µ»Ø
+    }
+
+    size_t quantity = GetUserQuantity(); // »ñÈ¡ÓÃ»§ÊäÈëµÄ¹ºÂòÊıÁ¿
+    if (quantity == 0) {
+        return; // Èç¹ûÊäÈëµÄÊıÁ¿Îª0£¬·µ»Ø
+    }
+    Commodity* commodity = (Commodity*)(selectedProduct->m_Data);
+    Userinfo* userinfo = (Userinfo*)(userMes->m_Data);  //ÓÃ»§ĞÅÏ¢ÔÚµÇÂ¼Ê±¾Í¿ÉÒÔÕÒµ½
+    size_t totalPrice = commodity->m_CommodityPrices * quantity;
+    if (userinfo->m_Balance >= totalPrice) {
+        userinfo->m_Balance = userinfo->m_Balance - totalPrice;
+    }
+    else{
+        printf("Óà¶î²»×ã£¬¹ºÂòÊ§°Ü");
+        Sleep(1000);
+        return;
+    }
+
+    char* orderType = ChoseOrderType();
+    if (!orderType) {
+        return;
+    }
+
+    OrderForm* order = CreateOrder(commodity, userinfo, quantity, orderType); // ´´½¨¶©µ¥
+    if (!order) {
+        printf("¶©µ¥´´½¨Ê§°Ü¡£\n"); // Èç¹û¶©µ¥´´½¨Ê§°Ü£¬Êä³öÌáÊ¾
+        Sleep(1000);
+        return;
+    }
+    PushFront(g_OrderForm, order); // ½«¶©µ¥¼ÓÈë¶©µ¥Á´±í          Õâ¾ÍÃ»±ØÒªĞ´³Éº¯ÊıÁË
+    printf("¶©µ¥Ìá½»³É¹¦£¡¶©µ¥ºÅ£º%zu\n", order->m_OrderNumber); // Êä³ö¶©µ¥Ìá½»³É¹¦ĞÅÏ¢¼°¶©µ¥ºÅ
+    Sleep(1000);
 }
 
 
 
 
-bool IsNumber(const char* str, size_t num)
-{
-	for (int i = 0; i < num; ++i) {
-		if (!isalnum(str[i])) {
-			return false;
-		}
-	}
-	return true;
+bool CompareArrays(const char* arr1, const char* arr2) {
+    // ¼ì²éÁ½¸öÊı×éµÄÃ¿¸ö×Ö·ûÊÇ·ñÏàµÈ£¬Ö±µ½Óöµ½¿Õ×Ö·û '\0'
+    while (*arr1 != '\0' && *arr2 != '\0') {
+        if (*arr1 != *arr2) {
+            return false;
+        }
+        ++arr1;
+        ++arr2;
+    }
+    // Èç¹ûÁ½¸öÊı×é¶¼±éÀúµ½ÁËÄ©Î²£¨¿Õ×Ö·û '\0'£©£¬ÔòÈÏÎªÏàµÈ£»·ñÔòÈÏÎª²»ÏàµÈ
+    return (*arr1 == '\0' && *arr2 == '\0');
 }
+
 
 void InformChange(Node* userMes)
 {
-	enum Modify {
-		EXIT, NAME, PASSWORD, PHONENUMBER, ADDRESS
-	};
-	enum Modify select;
-	Userinfo* userinfo = (Userinfo*)(userMes->m_Data);
-	printf("è¯·é€‰æ‹©è¦ä¿®æ”¹çš„ä¿¡æ¯:\n");
-	printf("0.å–æ¶ˆä¿®æ”¹\t\t1.åå­—\t\t2.å¯†ç \t\t3.æ‰‹æœºå·\t\t4.åœ°å€\n");
-	scanf("%d", &select);
-	CleanBuffer();
-	system("cls");
-	switch (select) {
-	case EXIT: {	// é€€å‡º
-		break;
-	}
-	case NAME: {
-		printf("è¯·è¾“å…¥æ–°çš„åå­—ï¼š\n");
-		char name[20];
-		int erromes = scanf("%s", name);
-		CleanBuffer();
-		if (StrInputFailure(erromes, name, sizeof(name))) {
-			printf("è¾“å…¥é”™è¯¯ã€‚\n");
-			return;
-		}
-		strncpy(userinfo->m_Username, name, sizeof(name));
-		printf("ä¿®æ”¹æˆåŠŸã€‚\n");
-		break;
-	}
-	case PASSWORD: {
-		printf("è¯·è¾“å…¥æ–°çš„å¯†ç ï¼š\n");
-		char password1[20];
-		int erromes = scanf("%s", password1);
-		CleanBuffer();
-		if (StrInputFailure(erromes, password1, sizeof(password1)) || !IsNumber(password1, sizeof(password1))) {
-			printf("è¾“å…¥é”™è¯¯ã€‚\n");
-			return;
-		}
-		printf("è¯·ç¡®è®¤æ–°çš„å¯†ç ï¼š\n");
-		char password2[20];
-		erromes = scanf("%s", password2);
-		CleanBuffer();
-		if (StrInputFailure(erromes, password2, sizeof(password2)) || !IsNumber(password2, sizeof(password2))) {
-			printf("è¾“å…¥é”™è¯¯ã€‚\n");
-			return;
-		}
-		if (strncmp(password1, password2, sizeof(password1) == 0)) {
-			strncpy(userinfo->m_Password, password2, sizeof(password2));
-			printf("ä¿®æ”¹æˆåŠŸã€‚\n");
-		}
-		else {
-			printf("è¾“å…¥ä¸ç›¸åŒã€‚\n");
-			return;
-		}
-		break;
-	}
-	case PHONENUMBER: {
-		printf("è¯·è¾“å…¥æ–°çš„æ‰‹æœºå·ï¼š\n");
-		char phoneNum[20];
-		int erromes = scanf("%s", phoneNum);
-		CleanBuffer();
-		if (StrInputFailure(erromes, phoneNum, sizeof(phoneNum)) || !IsNumber(phoneNum, sizeof(phoneNum))) {
-			printf("è¾“å…¥é”™è¯¯ã€‚\n");
-			return;
-		}
-		strncpy(userinfo->m_UserPhoneNum, phoneNum, sizeof(phoneNum));
-		printf("ä¿®æ”¹æˆåŠŸã€‚\n");
-		break;
-	}
-	case ADDRESS: {
-		printf("è¯·è¾“å…¥æ–°çš„åå­—ï¼š\n");
-		char address[40];
-		int erromes = scanf("%s", address);
-		CleanBuffer();
-		if (StrInputFailure(erromes, address, sizeof(address))) {
-			printf("è¾“å…¥é”™è¯¯ã€‚\n");
-			return;
-		}
-		strncpy(userinfo->m_Address, address, sizeof(address));
-		printf("ä¿®æ”¹æˆåŠŸã€‚\n");
-		break;
-	}
-	default: {
-		printf("è¾“å…¥é”™è¯¯ã€‚\n");
-		getchar();
-		break;
-	}
-	}
+    enum Modify {
+        EXIT, NAME, PASSWORD, PHONENUMBER, ADDRESS
+    };
+    enum Modify select;
+    Userinfo* userinfo = (Userinfo*)(userMes->m_Data);
+    printf("ÇëÑ¡ÔñÒªĞŞ¸ÄµÄĞÅÏ¢:\n");
+    printf("0.È¡ÏûĞŞ¸Ä\t\t1.Ãû×Ö\t\t2.ÃÜÂë\t\t3.ÊÖ»úºÅ\t\t4.µØÖ·\n");
+    scanf("%d", &select);
+    CleanBuffer();
+    //system("cls");
+    switch (select) {
+    case EXIT: {	// ÍË³ö
+        break;
+    }
+    case NAME: {
+        printf("ÇëÊäÈëĞÂµÄÃû×Ö£º\n");
+        char name[20];
+        int erromes = scanf("%s", name);
+        CleanBuffer();
+        if (StrInputFailure(erromes, name, sizeof(name))) {
+            printf("ÊäÈë´íÎó¡£\n");
+            Sleep(1000);
+            return;
+        }
+
+        if (Find(g_Userinfo, FindUser, name)) {
+            printf("ÓÃ»§ÃûÒÑ¾­´æÔÚ\n");
+            Sleep(1000);
+            return;
+        }
+
+        strncpy(userinfo->m_Username, name, sizeof(name));
+        printf("ĞŞ¸Ä³É¹¦¡£\n");
+        Sleep(1000);
+        break;
+    }
+    case PASSWORD: {
+        printf("ÇëÊäÈëĞÂµÄÃÜÂë£º\n");
+        char password1[20];
+        int erromes = scanf("%s", password1);
+        CleanBuffer();
+        if (StrInputFailure(erromes, password1, sizeof(password1)) || !IsAllAlphaNumeric(password1, sizeof(password1))) {
+            printf("ÇëÊäÈë·ûºÏ¸ñÊ½ÒªÇóµÄÃÜÂë1¡£\n");
+            Sleep(1000);
+            return;
+        }
+        printf("ÇëÈ·ÈÏĞÂµÄÃÜÂë£º\n");
+        char password2[20];
+        erromes = scanf("%s", password2);
+        CleanBuffer();
+        if (StrInputFailure(erromes, password2, sizeof(password2)) || !IsAllAlphaNumeric(password2, sizeof(password1))) {
+            printf("ÇëÊäÈë·ûºÏ¸ñÊ½ÒªÇóµÄÃÜÂë2¡£\n");
+            Sleep(1000);
+            return;
+        }
+        if (strncmp(password1, password2, sizeof(password1)) == 0) {
+            strncpy(userinfo->m_Password, password2, sizeof(password2));
+            printf("ĞŞ¸Ä³É¹¦¡£\n");
+            Sleep(1000);
+        }
+        else {
+            printf("ÊäÈë²»ÏàÍ¬¡£\n");
+            Sleep(1000);
+            return;
+        }
+        break;
+    }
+    case PHONENUMBER: {
+        printf("ÇëÊäÈëĞÂµÄÊÖ»úºÅ£º\n");
+        char phoneNum[20];
+        int erromes = scanf("%s", phoneNum);
+        CleanBuffer();
+        
+        if (StrInputFailure(erromes, phoneNum, sizeof(phoneNum)) || IsNumber(phoneNum, sizeof(phoneNum))) {
+            printf("ÇëÊäÈë·ûºÏ¸ñÊ½ÒªÇóµÄµç»°ºÅÂë¡£\n");
+            Sleep(1000);
+            return;
+        }
+        if (strlen(phoneNum) != 11) {
+            printf("ÇëÊäÈë·ûºÏ³¤¶ÈÒªÇóµÄµç»°ºÅÂë¡£\n");
+            Sleep(1000);
+            return;
+        }
+        if (Find(g_Userinfo, FindPhoneNum, phoneNum)) {
+            printf("¸Ãµç»°ÒÑ±»×¢²á\n");
+            Sleep(1000);
+            return;
+        }
+        strncpy(userinfo->m_UserPhoneNum, phoneNum, sizeof(phoneNum));
+        printf("ĞŞ¸Ä³É¹¦¡£\n");
+        Sleep(1000);
+        break;
+    }
+    case ADDRESS: {
+        printf("ÇëÊäÈëĞÂµÄµØÖ·£º\n");
+        char address[40];
+        int erromes = scanf("%s", address);
+        CleanBuffer();
+        if (StrInputFailure(erromes, address, sizeof(address))) {
+            printf("ÊäÈë´íÎó¡£\n");
+            Sleep(1000);
+            return;
+        }
+        strncpy(userinfo->m_Address, address, sizeof(address));
+        printf("ĞŞ¸Ä³É¹¦¡£\n");
+        Sleep(1000);
+        break;
+    }
+    default: {
+        printf("ÊäÈë´íÎó¡£\n");
+        Sleep(1000);
+        getchar();
+        break;
+    }
+    }
 }
 
+
+void TraversalStock(void* pValue, void* operateValue)
+{
+    Userinfo* userinfo = (Userinfo*)operateValue;
+    OrderForm* order = (OrderForm*)pValue;
+    if (!strncmp(order->m_UserName, userinfo->m_Username, sizeof(userinfo->m_Username)) &&
+        !strncmp(order->m_OrderType, "ÅúÁ¿¶¨È¡", sizeof("ÅúÁ¿¶¨È¡"))) {
+        printf("ÉÌÆ·Ãû£º%s\tÉÌÆ·±àºÅ£º%zu\tÒÑÌáÈ¡ÊıÁ¿£º%zu\tÎ´ÌáÈ¡ÊıÁ¿£º%zu\n", 
+            order->m_CommodityName,
+            order->m_OrderNumber,
+            order->m_DeliverNum,
+            order->m_UndeliverNum);
+    }
+}
+
+bool FindStock(void* pValue, void* cmpValue)
+{
+    OrderForm* order = (OrderForm*)pValue;
+    size_t orderNum = *((size_t*)cmpValue);
+    return order->m_OrderNumber == orderNum;
+}
+
+void DrawStock(Node* userMes)
+{
+    Userinfo* userinfo = (Userinfo*)(userMes->m_Data);
+    TraversalOperation(g_OrderForm, TraversalStock, userinfo);
+    printf("ÇëÑ¡ÔñÒªÌáÈ¡¶©µ¥,»òÊäÈë0ÍË³ö¡£\n");
+    size_t orderNum;
+    int error = scanf("%zu", &orderNum);
+    CleanBuffer();
+    if (NumInputFailure(error) || orderNum == 0) {
+        return;
+    }
+    Node* node = Find(g_OrderForm, FindStock, &orderNum);
+    if (!node) {
+        printf("ÎŞ´Ë¶©µ¥¡£\n");
+        getchar();
+        return;
+    }
+    printf("ÇëÊäÈëÒªÌáÈ¡µÄÊıÁ¿¡£\n");
+    size_t num;
+    error = scanf("%zu", &num);
+    CleanBuffer();
+    if (NumInputFailure(error)) {
+        printf("ÊäÈë´íÎó¡£\n");
+        getchar();
+        return;
+    }
+    OrderForm* order = (OrderForm*)(node->m_Data);
+    if (num < 0 || num > order->m_UndeliverNum) {
+        printf("ÊäÈë´íÎó¡£\n");
+        getchar();
+        return;
+    }
+    order->m_UndeliverNum -= num;
+    order->m_DeliverNum += num;
+    if (order->m_UndeliverNum == 0) {
+        strncpy(order->m_OrderStatus, "ÒÑÅäËÍ", sizeof("ÒÑÅäËÍ"));
+    }
+    printf("ÌáÈ¡³É¹¦¡£\n");
+}
 
 
 void UserCatalogue()
 {
-	printf("*****************  0.è¿”å›ä¸»ç•Œé¢      ********************\n");
-	printf("*****************  1.è´­ä¹°å•†å“        ********************\n");
-	printf("*****************  2.è´¦æˆ·å……å€¼        ********************\n");
-	printf("*****************  3.èµ„æ–™ä¿®æ”¹        ********************\n");
+    printf("*****************  0.·µ»ØÖ÷½çÃæ      ********************\n");
+    printf("*****************  1.¹ºÂòÉÌÆ·        ********************\n");
+    printf("*****************  2.ÕË»§³äÖµ        ********************\n");
+    printf("*****************  3.×ÊÁÏĞŞ¸Ä        ********************\n");
+    printf("*****************  4.²é¿´×ÊÁÏ        ********************\n");
+    printf("*****************  5.²é¿´¿â´æ²¢ÌáÈ¡  ********************\n");
 }
 
 
 void UserUI()
 {
 
-	Node* UserMes = UserLoginUI();
-	if (!UserMes) {
-		return;
-	}
-
-	enum UserMenu {
-		EXIT, PURCHASEPRODUCT, RECHARGE, INFORMCHANGE
-	};
+    Node* UserMes = UserLoginUI();
+    if (!UserMes) {
+        return;
+    }
+    enum UserMenu {
+        EXIT, PURCHASEPRODUCT, RECHARGE, INFORMCHANGE, CHECKMATERIAL, DRAWSTOCK
+    };
 	enum MasterMenu select;
 	do {
-		system("cls");
-		UserCatalogue();	//æ‰“å°ç›®å½•
-		printf("è¯·é€‰æ‹©:");
+        system("cls");
+        UserCatalogue();	//´òÓ¡Ä¿Â¼
+        printf("ÇëÑ¡Ôñ:");
 		scanf("%d", &select);
 		CleanBuffer();
 		system("cls");
 		switch (select) {
-		case EXIT: {
-			FILE* pfw = fopen("Userinfo.dat", "wb");	//åˆ›å»ºæ–‡ä»¶
-			if (pfw == NULL) {
-				printf("%s", strerror(errno));
-				return;
-			}
-			TraversalOperation(g_Userinfo, SaveUserinfo, pfw);
-			fclose(pfw);
-			break;
-		}
-		case PURCHASEPRODUCT: {
-			PurchaseProduct(UserMes);
-			break;
-		}
-		case RECHARGE: {
-			Recharge(UserMes);
-			break;
-		}
-		case INFORMCHANGE: {
-			InformChange(UserMes);
-			break;
-		}
+        case EXIT: {
+            SaveUserinfo();
+            SaveOrderForm();
+            break;
+        }
+        case PURCHASEPRODUCT: { //¹ºÂòÉÌÆ·
+            PurchaseProduct(UserMes);
+            SaveOrderForm();
+            break;
+        }
+        case RECHARGE: {    //³äÖµ
+            Recharge(UserMes);
+            SaveUserinfo();
+            break;
+        }
+        case INFORMCHANGE: {    //ĞŞ¸Ä¸öÈËĞÅÏ¢
+            PrintUserAll(UserMes->m_Data, NULL);
+            InformChange(UserMes);
+            SaveUserinfo();
+            break;
+        }
+        case CHECKMATERIAL: {   // ²é¿´¸öÈËĞÅÏ¢
+            PrintUserAll(UserMes->m_Data, NULL);
+            getchar();
+            break;
+        }
+        case DRAWSTOCK: {   // ²é¿´¿â´æ²¢ÌáÈ¡
+            DrawStock(UserMes);
+            SaveOrderForm();
+            getchar();
+            break;
+        }
 		default: {
-			printf("è¾“å…¥é”™è¯¯ã€‚\n");
+			printf("ÊäÈë´íÎó¡£\n");
 			getchar();
 			break;
 		}

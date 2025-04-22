@@ -2,41 +2,42 @@
 
 #include "LoginSystem.h"
 #include "windows.h"
+#include "User.h"
 
 #define MALLOC(T) ((T*)malloc(sizeof(T)))
 
 
-//ç”¨æˆ·ç™»å½•
+//ÓÃ»§µÇÂ¼
 Node* UserLogin()
 {
-	Userinfo e; //ç”¨æˆ·ä¿¡æ¯ç»“æ„ä½“
+	Userinfo e; //ÓÃ»§ĞÅÏ¢½á¹¹Ìå
 	int erromes;
-	Node* node = NULL;
+	Node* node= NULL;
 
-	printf("è¯·è¾“å…¥ç™»å½•çš„ç”¨æˆ·åï¼š\n");
+	printf("ÇëÊäÈëµÇÂ¼µÄÓÃ»§Ãû£º\n");
 	erromes = scanf("%s", e.m_Username);
 	CleanBuffer();
 	if (StrInputFailure(erromes, e.m_Username, sizeof(e.m_Username))) {
-		printf("ç”¨æˆ·åè¾“å…¥é”™è¯¯ã€‚\n");
+		printf("ÓÃ»§ÃûÊäÈë´íÎó¡£\n");
 		return NULL;
 	}
 
 	node = Find(g_Userinfo, FindUser, e.m_Username);
-	if (node == NULL) {
-		printf("ç”¨æˆ·åä¸å­˜åœ¨\n");
+	if ( node == NULL ) {
+		printf("ÓÃ»§Ãû²»´æÔÚ\n");
 		return NULL;
 	}
 
-	printf("è¯·è¾“å…¥ç™»å½•çš„å¯†ç ï¼š\n");
+	printf("ÇëÊäÈëµÇÂ¼µÄÃÜÂë£º\n");
 	erromes = scanf("%s", e.m_Password);
 	CleanBuffer();
 	if (StrInputFailure(erromes, e.m_Password, sizeof(e.m_Password))) {
-		printf("å¯†ç è¾“å…¥é”™è¯¯ã€‚\n");
+		printf("ÃÜÂëÊäÈë´íÎó¡£\n");
 		return NULL;
 	}
 
-	if (strncmp(((Userinfo*)(node->m_Data))->m_Password, e.m_Password, sizeof(e.m_Password)) != 0) {
-		printf("å¯†ç ä¸åŒ¹é…\n");
+	if ( strncmp(((Userinfo*)(node->m_Data))->m_Password , e.m_Password , sizeof(e.m_Password)) != 0 ) {
+		printf("ÃÜÂë²»Æ¥Åä\n");
 		return NULL;
 	}
 
@@ -46,15 +47,7 @@ Node* UserLogin()
 
 
 
-// æ˜¾ç¤ºè´¦å·ä¿¡æ¯,è¿™é‡Œæ²¡æœ‰æ˜¾ç¤ºè´¦å·çš„å¯†ç 
-void PrintUser(void* pValue)
-{
-	Userinfo* userinfo = (Userinfo*)pValue;
-	printf("%s\t%s\t%s\t%lld\n", userinfo->m_Username, userinfo->m_UserPhoneNum, userinfo->m_Address,
-		userinfo->m_Balance);
-}
-
-//æ„é€ å¯¹è±¡
+//¹¹Ôì¶ÔÏó
 Userinfo* NewUser(Userinfo e)
 {
 	Userinfo* userinfo = MALLOC(Userinfo);
@@ -69,65 +62,77 @@ Userinfo* NewUser(Userinfo e)
 	return userinfo;
 }
 
-//ç”¨æˆ·æ³¨å†Œ
+//ÓÃ»§×¢²á
 void UserRegister()
 {
-	Userinfo e; //ç”¨æˆ·ä¿¡æ¯ç»“æ„ä½“
+	Userinfo e; //ÓÃ»§ĞÅÏ¢½á¹¹Ìå
 	int erromes;
 
-	printf("è¯·è¾“å…¥æ³¨å†Œçš„ç”¨æˆ·åï¼š\n");
+	printf("ÇëÊäÈë×¢²áµÄÓÃ»§Ãû£º\n");
 	erromes = scanf("%s", e.m_Username);
 	CleanBuffer();
 	if (StrInputFailure(erromes, e.m_Username, sizeof(e.m_Username))) {
-		printf("è¾“å…¥é”™è¯¯ã€‚\n");
+		printf("ÊäÈë´íÎó¡£\n");
 		return;
 	}
 
 	if (Find(g_Userinfo, FindUser, e.m_Username)) {
-		printf("ç”¨æˆ·åå·²ç»å­˜åœ¨\n");
+		printf("ÓÃ»§ÃûÒÑ¾­´æÔÚ\n");
+		Sleep(1000);
 		return;
 	}
 
-	printf("è¯·è¾“å…¥æ³¨å†Œçš„å¯†ç ï¼š\n");
+	printf("ÇëÊäÈë×¢²áµÄÃÜÂë£º\n");
 	erromes = scanf("%s", e.m_Password);
 	CleanBuffer();
 	if (StrInputFailure(erromes, e.m_Password, sizeof(e.m_Password))) {
-		printf("è¾“å…¥é”™è¯¯ã€‚\n");
+		printf("ÊäÈë´íÎó¡£\n");
 		return;
 	}
 
-	printf("è¯·è¾“å…¥æ³¨å†Œçš„ç”¨æˆ·æ‰‹æœºå·ï¼š\n");
+	printf("ÇëÊäÈë×¢²áµÄÓÃ»§ÊÖ»úºÅ£º\n");
 	erromes = scanf("%s", e.m_UserPhoneNum);
 	CleanBuffer();
-	if (StrInputFailure(erromes, e.m_UserPhoneNum, sizeof(e.m_UserPhoneNum))) {
-		printf("è¾“å…¥é”™è¯¯ã€‚\n");
+	if (StrInputFailure(erromes, e.m_UserPhoneNum, sizeof(e.m_UserPhoneNum)) || IsNumber(e.m_UserPhoneNum, sizeof(e.m_UserPhoneNum))) {
+		printf("ÇëÊäÈë·ûºÏ¸ñÊ½ÒªÇóµÄµç»°ºÅÂë¡£\n");
+		Sleep(1000);
+		return;
+	}
+	if (strlen(e.m_UserPhoneNum) != 11) {
+		printf("ÇëÊäÈë·ûºÏ³¤¶ÈÒªÇóµÄµç»°ºÅÂë¡£\n");
+		Sleep(1000);
 		return;
 	}
 
-	printf("è¯·è¾“å…¥æ³¨å†Œçš„ç”¨æˆ·åœ°å€ï¼š\n");
+	if (Find(g_Userinfo, FindPhoneNum, e.m_UserPhoneNum)) {
+		printf("¸Ãµç»°ÒÑ±»×¢²á\n");
+		return;
+	}
+
+	printf("ÇëÊäÈë×¢²áµÄÓÃ»§µØÖ·£º\n");
 	erromes = scanf("%s", e.m_Address);
 	CleanBuffer();
 	if (StrInputFailure(erromes, e.m_Address, sizeof(e.m_Address))) {
-		printf("è¾“å…¥é”™è¯¯ã€‚\n");
+		printf("ÊäÈë´íÎó¡£\n");
 		return;
 	}
 
-	printf("è¯·è¾“å…¥æ³¨å†Œçš„ç”¨æˆ·ä½™é¢ï¼š\n");
+	printf("ÇëÊäÈëÒª³äÖµµÄ½ğ¶î£º\n");
 	erromes = scanf("%lld", &e.m_Balance);
 	CleanBuffer();
 	if (NumInputFailure(erromes)) {
-		printf("è¾“å…¥é”™è¯¯ã€‚\n");
+		printf("ÊäÈë´íÎó¡£\n");
 		return;
 	}
 
-	Userinfo* userinfo = NewUser(e);	//æ„é€ å¯¹è±¡
+	Userinfo* userinfo = NewUser(e);	//¹¹Ôì¶ÔÏó
 	if (!userinfo) {
 		return;
 	}
-	PushFront(g_Userinfo, userinfo);	//æ’å…¥å¯¹è±¡
+	PushFront(g_Userinfo, userinfo);	//²åÈë¶ÔÏó
 }
 
-// è´¦å·æŸ¥æ‰¾å‡½æ•°,é˜²æ­¢é‡å¤è´¦å·
+// ÕËºÅ²éÕÒº¯Êı,·ÀÖ¹ÖØ¸´ÕËºÅ
 bool FindUser(void* pValue, void* cmpValue)
 {
 	Userinfo* userinfo = (Userinfo*)pValue;
@@ -135,18 +140,14 @@ bool FindUser(void* pValue, void* cmpValue)
 }
 
 
-//ä¿å­˜è´¦å·ä¿¡æ¯
-void SaveUserinfo(void* pValue, void* operateValue)
-{
-	FILE* pfw = (FILE*)operateValue;
-	fwrite(pValue, sizeof(Userinfo), 1, pfw);
-}
+
+
 
 void UserLoginCatalogue()
 {
-	printf("**************   0.è¿”å›ä¸»ç•Œé¢     ********************\n");
-	printf("**************   1.ç”¨æˆ·æ³¨å†Œ       ********************\n");
-	printf("**************   2.ç”¨æˆ·ç™»å½•       ********************\n");
+	printf("**************   0.·µ»ØÖ÷½çÃæ     ********************\n");
+	printf("**************   1.ÓÃ»§×¢²á       ********************\n");
+	printf("**************   2.ÓÃ»§µÇÂ¼       ********************\n");
 }
 
 Node* UserLoginUI()
@@ -154,45 +155,39 @@ Node* UserLoginUI()
 	enum UserMenu {
 		EXIT, USERREGISTER, USERLOGIN
 	};
-	enum UserMenu select;
+	enum MasterMenu select;
 	do {
-		UserLoginCatalogue();	//æ‰“å°ç›®å½•
-		printf("è¯·é€‰æ‹©:");
+		UserLoginCatalogue();	//´òÓ¡Ä¿Â¼
+		printf("ÇëÑ¡Ôñ:");
 		scanf("%d", &select);
 		CleanBuffer();
 		system("cls");
 		switch (select) {
-		case EXIT: {	//ä¿å­˜ç”¨æˆ·ä¿¡æ¯å¹¶é€€å‡º
-			FILE* pfw = fopen("Userinfo.dat", "wb");	//åˆ›å»ºæ–‡ä»¶
-			if (pfw == NULL) {
-				printf("%s", strerror(errno));
-				return;
-			}
-			TraversalOperation(g_Userinfo, SaveUserinfo, pfw);
-			fclose(pfw);
+		case EXIT: {	//±£´æÓÃ»§ĞÅÏ¢²¢ÍË³ö
+			SaveUserinfo();
 			break;
 		}
-		case USERREGISTER: {  //ç”¨æˆ·æ³¨å†Œ
+		case USERREGISTER: {  //ÓÃ»§×¢²á
 			UserRegister();
+			SaveUserinfo();
 			getchar();
 			break;
-		}
-		case USERLOGIN: {//ç”¨æˆ·ç™»å½•
-
+			}
+		case USERLOGIN: {//ÓÃ»§µÇÂ¼
 			Node* node = UserLogin();
 			if (!node) {
-				printf("ç™»å½•å¤±è´¥\n");
+				printf("µÇÂ¼Ê§°Ü\n");
 			}
 			else {
-				printf("ç™»å½•æˆåŠŸ\n");
-				Sleep(1000);
+				printf("µÇÂ¼³É¹¦\n");
 				return node;
 			}
+			SaveUserinfo();
 			getchar();
 			break;
 		}
 		default: {
-			printf("è¾“å…¥é”™è¯¯ã€‚\n");
+			printf("ÊäÈë´íÎó¡£\n");
 			getchar();
 			break;
 		}
@@ -202,8 +197,59 @@ Node* UserLoginUI()
 }
 
 
-//å•†å®¶ç™»å½•
-bool MerchantLogin()
+bool MerchantLogin(char correctPassword[20])
+{
+	printf("ÇëÊäÈëÃÜÂë£º\n");
+	char password[20];
+	int erromes = scanf("%s", password);
+	CleanBuffer();
+	if (StrInputFailure(erromes, password, sizeof(password))) {
+		printf("ÊäÈë´íÎó¡£\n");
+		return;
+	}
+	if (strncmp(correctPassword, password, sizeof(password)) == 0) {
+		printf("ÃÜÂëÕıÈ·¡£\n");
+		return true;
+	}
+	else {
+		printf("ÃÜÂë´íÎó¡£\n");
+		return false;
+	}
+}
+
+void ChangePassword(char* correctPassword)
+{
+	if (!MerchantLogin(correctPassword)) {
+		return NULL;
+	}
+	printf("ÇëÊäÈëĞÂµÄÃÜÂë£º\n");
+	char password[20];
+	int erromes = scanf("%s", password);
+	CleanBuffer();
+	if (StrInputFailure(erromes, password, sizeof(password))) {
+		printf("ÊäÈë´íÎó¡£\n");
+		return;
+	}
+	FILE* pfw;
+	pfw = fopen("Merchant.dat", "wb");
+	if (pfw == NULL) {
+		printf("%s", strerror(errno));
+		return;
+	}
+	fwrite(password, sizeof(password), 1, pfw);
+	fclose(pfw);
+	strncpy(correctPassword, password, sizeof(password));
+}
+
+void MerchantLoginCatalogue()
+{
+	printf("**************   0.·µ»ØÖ÷½çÃæ     ********************\n");
+	printf("**************   1.ÉÌ¼ÒµÇÂ¼       ********************\n");
+	printf("**************   2.ĞŞ¸ÄÃÜÂë       ********************\n");
+}
+
+//ÉÌ¼ÒµÇÂ¼
+bool MerchantLoginUI()
 {
 	FILE* pfr;
 	if (_access("Merchant.dat", 0)) {
@@ -212,26 +258,47 @@ bool MerchantLogin()
 	else {
 		pfr = fopen("Merchant.dat", "rb");
 	}
+	if (pfr == NULL) {
+		printf("%s", strerror(errno));
+		return false;
+	}
 	char correctPassword[20];
 	fread(correctPassword, sizeof(correctPassword), 1, pfr);
-
-	printf("è¯·è¾“å…¥å¯†ç ï¼š\n");
-	char password[20];
-	int erromes = scanf("%s", password);
-	CleanBuffer();
-	if (StrInputFailure(erromes, password, sizeof(password))) {
-		printf("è¾“å…¥é”™è¯¯ã€‚\n");
-		return false;
-	}
-	if (strncmp(correctPassword, password, sizeof(password)) == 0) {
-		printf("ç™»å½•æˆåŠŸã€‚\n");
-		Sleep(1000);
-		return true;
-	}
-	else {
-		printf("ç™»å½•å¤±è´¥ã€‚\n");
-		Sleep(1000);
-		return false;
-	}
+	fclose(pfr);
+	enum UserMenu {
+		EXIT, MERCHANTLOGIN, CHANGEPASSWORD
+	};
+	enum MasterMenu select;
+	do {
+		MerchantLoginCatalogue();	//´òÓ¡Ä¿Â¼
+		printf("ÇëÑ¡Ôñ:");
+		scanf("%d", &select);
+		CleanBuffer();
+		system("cls");
+		switch (select) {
+		case EXIT: {
+			break;
+		}
+		case MERCHANTLOGIN: {
+			if (MerchantLogin(correctPassword)) {
+				return true;
+			}
+			return ;
+			break;
+		}
+		case CHANGEPASSWORD: {
+			ChangePassword(correctPassword);
+			getchar();
+			break;
+		}
+		default: {
+			printf("ÊäÈë´íÎó¡£\n");
+			getchar();
+			break;
+		}
+		}
+		system("cls");
+	} while (select);
+	return false;
 }
 
